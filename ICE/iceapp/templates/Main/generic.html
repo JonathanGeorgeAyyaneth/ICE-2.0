@@ -1,0 +1,179 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results Page</title>
+    <link rel="stylesheet" href="{% static 'styles/category_style.css' %}">
+</head>
+<body>
+    <header>
+        <h1 class="title">Search Results</h1>
+    </header>
+    
+
+    <main>
+        <div class="category-list">
+            <!-- Category Sections -->
+            {% if grouped_persons %}
+                <div class="category-card">
+                    <h3>Persons</h3>
+                    <ul class="subheading-list">
+                        {% for letter, persons in grouped_persons %}
+                        <section>
+                            <li class="letter" data-letter="{{ letter }}">{{ letter }}</li>
+                            <ul class="entries" style="display: none;">
+                                {% for person in persons %}
+                                    <li><a href="{% url 'person_detail' person.id %}">{{ person.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </section>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if grouped_institutions %}
+                <div class="category-card">
+                    <h3>Institutions</h3>
+                    <ul class="subheading-list">
+                        {% for letter, institutions in grouped_institutions %}
+                            <li class="letter" data-letter="{{ letter }}">{{ letter }}</li>
+                            <ul class="entries" style="display: none;">
+                                {% for institution in institutions %}
+                                    <li><a href="{% url 'institution_building_detail' institution.id %}">{{ institution.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if grouped_church_communities %}
+                <div class="category-card">
+                    <h3>Church Communities</h3>
+                    <ul class="subheading-list">
+                        {% for letter, communities in grouped_church_communities %}
+                            <li class="letter" data-letter="{{ letter }}">{{ letter }}</li>
+                            <ul class="entries" style="display: none;">
+                                {% for community in communities %}
+                                    <li><a href="{% url 'church_community_detail' community.id %}">{{ community.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if grouped_celebrations %}
+                <div class="category-card">
+                    <h3>Celebrations</h3>
+                    <ul class="subheading-list">
+                        {% for letter, celebrations in grouped_celebrations %}
+                            <li class="letter" data-letter="{{ letter }}">{{ letter }}</li>
+                            <ul class="entries" style="display: none;">
+                                {% for celebration in celebrations %}
+                                    <li><a href="{% url 'major_celebration_historical_event_detail' celebration.id %}">{{ celebration.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if grouped_churches %}
+                <div class="category-card">
+                    <h3>Churches</h3>
+                    <ul class="subheading-list">
+                        {% for letter, churches in grouped_churches %}
+                            <li class="letter" data-letter="{{ letter }}">{{ letter }}</li>
+                            <ul class="entries" style="display: none;">
+                                {% for church in churches %}
+                                    <li><a href="{% url 'church_and_other_building_detail' church.id %}">{{ church.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+
+    <script src="{% static 'js/category_script.js' %}"></script>
+</body>
+</html>
+
+<!-- 
+{% if grouped_persons %}
+    <h2>Persons</h2>
+    <ul>
+        {% for letter, persons in grouped_persons %}
+            <li>{{ letter }}</li>
+            <ul>
+                {% for person in persons %}
+                    <li><a href="{% url 'person_detail' person.id %}">{{ person.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if grouped_institutions %}
+    <h2>Institutions</h2>
+    <ul>
+        {% for letter, institutions in grouped_institutions %}
+            <li>{{ letter }}</li>
+            <ul>
+                {% for institution in institutions %}
+                    <li><a href="{% url 'institution_building_detail' institution.id %}">{{ institution.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if grouped_church_communities %}
+    <h2>Church Communities</h2>
+    <ul>
+        {% for letter, communities in grouped_church_communities %}
+            <li>{{ letter }}</li>
+            <ul>
+                {% for community in communities %}
+                    <li><a href="{% url 'church_community_detail' community.id %}">{{ community.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if grouped_celebrations %}
+    <h2>Celebrations</h2>
+    <ul>
+        {% for letter, celebrations in grouped_celebrations %}
+            <li>{{ letter }}</li>
+            <ul>
+                {% for celebration in celebrations %}
+                    <li><a href="{% url 'major_celebration_historical_event_detail' celebration.id %}">{{ celebration.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if grouped_churches %}
+    <h2>Churches</h2>
+    <ul>
+        {% for letter, churches in grouped_churches %}
+            <li>{{ letter }}</li>
+            <ul>
+                {% for church in churches %}
+                    <li><a href="{% url 'church_and_other_building_detail' church.id %}">{{ church.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+-->

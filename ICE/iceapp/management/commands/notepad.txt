@@ -1,0 +1,868 @@
+from django.core.management.base import BaseCommand
+from iceapp.models import ChurchAndOtherBuilding,ChurchCommunity,MajorCelebrationHistoricalEvent,InstitutionBuilding,Person  # Replace with your model
+from googletrans import Translator
+import textwrap
+class Command(BaseCommand):
+    help = 'Translate existing records'
+
+    def handle(self, *args, **kwargs):
+        translator = Translator()
+
+        # Iterate through each record
+        # for record in ChurchCommunity.objects.all():
+        #     # Translate the 'about' field to different languages
+        #     if record.about:  # Ensure the field is not empty
+
+        #         # Translate 'about' to Malayalam
+        #         chunk_size = 2000
+        #         translated_text_ml = ""
+        #         for chunk in textwrap.wrap(record.about, chunk_size):
+        #             translated = translator.translate(chunk, dest='ml')
+        #             translated_text_ml += translated.text + " "
+                
+        #         # Translate 'about' to Hindi
+        #         translated_text_hi = ""
+        #         for chunk in textwrap.wrap(record.about, chunk_size):
+        #             translated = translator.translate(chunk, dest='hi')
+        #             translated_text_hi += translated.text + " "
+
+        #         # Assign the translated text to the record fields
+        #         record.about_ml = translated_text_ml.strip()
+        #         record.about_hi = translated_text_hi.strip()
+
+        #         # Save the updated record
+        #         record.save()
+
+        #         self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+
+        #     # if record.governance_and_structure:
+        #     if record.governance_and_structure:  # Ensure the field is not empty
+
+        #         # Translate 'about' to Malayalam
+        #         chunk_size = 2000
+        #         translated_text_ml = ""
+        #         for chunk in textwrap.wrap(record.governance_and_structure, chunk_size):
+        #             translated = translator.translate(chunk, dest='ml')
+        #             translated_text_ml += translated.text + " "
+                
+        #         # Translate 'about' to Hindi
+        #         translated_text_hi = ""
+        #         for chunk in textwrap.wrap(record.governance_and_structure, chunk_size):
+        #             translated = translator.translate(chunk, dest='hi')
+        #             translated_text_hi += translated.text + " "
+
+        #         # Assign the translated text to the record fields
+        #         record.governance_and_structure_ml = translated_text_ml.strip()
+        #         record.governance_and_structure_hi = translated_text_hi.strip()
+
+        #         # Save the updated record
+        #         record.save()
+
+        #         self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+           
+        #     # if record.worship_practices_and_rituals:
+        #     if record.worship_practices_and_rituals:  # Ensure the field is not empty
+
+        #         # Translate 'worship_practices_and_rituals' to Malayalam
+        #         chunk_size = 2000
+        #         translated_text_ml = ""
+        #         for chunk in textwrap.wrap(record.worship_practices_and_rituals, chunk_size):
+        #             translated = translator.translate(chunk, dest='ml')
+        #             translated_text_ml += translated.text + " "
+                
+        #         # Translate 'about' to Hindi
+        #         translated_text_hi = ""
+        #         for chunk in textwrap.wrap(record.worship_practices_and_rituals, chunk_size):
+        #             translated = translator.translate(chunk, dest='hi')
+        #             translated_text_hi += translated.text + " "
+
+        #         # Assign the translated text to the record fields
+        #         record.worship_practices_and_rituals_ml = translated_text_ml.strip()
+        #         record.worship_practices_and_rituals_hi = translated_text_hi.strip()
+
+        #         # Save the updated record
+        #         record.save()
+
+        #         self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))            
+
+        #     # if record.beliefs_and_teachings:
+        #     if record.beliefs_and_teachings:  # Ensure the field is not empty
+
+        #         # Translate 'about' to Malayalam
+        #         chunk_size = 2000
+        #         translated_text_ml = ""
+        #         for chunk in textwrap.wrap(record.beliefs_and_teachings, chunk_size):
+        #             translated = translator.translate(chunk, dest='ml')
+        #             translated_text_ml += translated.text + " "
+                
+        #         # Translate 'about' to Hindi
+        #         translated_text_hi = ""
+        #         for chunk in textwrap.wrap(record.beliefs_and_teachings, chunk_size):
+        #             translated = translator.translate(chunk, dest='hi')
+        #             translated_text_hi += translated.text + " "
+
+        #         # Assign the translated text to the record fields
+        #         record.beliefs_and_teachings_ml = translated_text_ml.strip()
+        #         record.beliefs_and_teachings_hi = translated_text_hi.strip()
+
+        #         # Save the updated record
+        #         record.save()
+
+        #         self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))          
+
+        #     # if record.community_life:
+        #     if record.community_life:  # Ensure the field is not empty
+
+        #         # Translate 'about' to Malayalam
+        #         chunk_size = 2000
+        #         translated_text_ml = ""
+        #         for chunk in textwrap.wrap(record.community_life, chunk_size):
+        #             translated = translator.translate(chunk, dest='ml')
+        #             translated_text_ml += translated.text + " "
+                
+        #         # Translate 'about' to Hindi
+        #         translated_text_hi = ""
+        #         for chunk in textwrap.wrap(record.community_life, chunk_size):
+        #             translated = translator.translate(chunk, dest='hi')
+        #             translated_text_hi += translated.text + " "
+
+        #         # Assign the translated text to the record fields
+        #         record.community_life_ml = translated_text_ml.strip()
+        #         record.community_life_hi = translated_text_hi.strip()
+
+        #         # Save the updated record
+        #         record.save()
+
+        #         self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))         
+
+        #     # if record.conclusion:
+        #     if record.conclusion:  # Ensure the field is not empty
+
+        #         # Translate 'about' to Malayalam
+        #         chunk_size = 2000
+        #         translated_text_ml = ""
+        #         for chunk in textwrap.wrap(record.conclusion, chunk_size):
+        #             translated = translator.translate(chunk, dest='ml')
+        #             translated_text_ml += translated.text + " "
+                
+        #         # Translate 'about' to Hindi
+        #         translated_text_hi = ""
+        #         for chunk in textwrap.wrap(record.conclusion, chunk_size):
+        #             translated = translator.translate(chunk, dest='hi')
+        #             translated_text_hi += translated.text + " "
+
+        #         # Assign the translated text to the record fields
+        #         record.conclusion_ml = translated_text_ml.strip()
+        #         record.conclusion_hi = translated_text_hi.strip()
+
+        #         # Save the updated record
+        #         record.save()
+
+        #         self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+           
+        #     # if record.historical_figures:
+        #     if record.historical_figures:  # Ensure the field is not empty
+
+        #         # Translate 'about' to Malayalam
+        #         chunk_size = 2000
+        #         translated_text_ml = ""
+        #         for chunk in textwrap.wrap(record.historical_figures, chunk_size):
+        #             translated = translator.translate(chunk, dest='ml')
+        #             translated_text_ml += translated.text + " "
+                
+        #         # Translate 'about' to Hindi
+        #         translated_text_hi = ""
+        #         for chunk in textwrap.wrap(record.historical_figures, chunk_size):
+        #             translated = translator.translate(chunk, dest='hi')
+        #             translated_text_hi += translated.text + " "
+
+        #         # Assign the translated text to the record fields
+        #         record.historical_figures_ml = translated_text_ml.strip()
+        #         record.historical_figures_hi = translated_text_hi.strip()
+
+        #         # Save the updated record
+        #         record.save()
+
+        #         self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+           
+
+        #     self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+
+# # ---------------------------------------------------------------------------------------------------------------------------------#
+#         for record in ChurchAndOtherBuilding.objects.all():
+#             # Translate the 'about' field to different languages
+#             if record.about:  # Ensure the field is not empty
+
+#                 # Translate 'about' to Malayalam
+#                 chunk_size = 2000
+#                 translated_text_ml = ""
+#                 for chunk in textwrap.wrap(record.about, chunk_size):
+#                     translated = translator.translate(chunk, dest='ml')
+#                     translated_text_ml += translated.text + " "
+                
+#                 # Translate 'about' to Hindi
+#                 translated_text_hi = ""
+#                 for chunk in textwrap.wrap(record.about, chunk_size):
+#                     translated = translator.translate(chunk, dest='hi')
+#                     translated_text_hi += translated.text + " "
+
+#                 # Assign the translated text to the record fields
+#                 record.about_ml = translated_text_ml.strip()
+#                 record.about_hi = translated_text_hi.strip()
+
+#                 # Save the updated record
+#                 record.save()
+
+#                 self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+
+#             # if record.governance_and_structure:
+#             if record.history:  # Ensure the field is not empty
+
+#                 # Translate 'about' to Malayalam
+#                 chunk_size = 2000
+#                 translated_text_ml = ""
+#                 for chunk in textwrap.wrap(record.history, chunk_size):
+#                     translated = translator.translate(chunk, dest='ml')
+#                     translated_text_ml += translated.text + " "
+                
+#                 # Translate 'about' to Hindi
+#                 translated_text_hi = ""
+#                 for chunk in textwrap.wrap(record.history, chunk_size):
+#                     translated = translator.translate(chunk, dest='hi')
+#                     translated_text_hi += translated.text + " "
+
+#                 # Assign the translated text to the record fields
+#                 record.history_ml = translated_text_ml.strip()
+#                 record.history_hi = translated_text_hi.strip()
+
+#                 # Save the updated record
+#                 record.save()
+
+#                 self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+           
+#             # if record.worship_practices_and_rituals:
+#             if record.architecture_and_design:  # Ensure the field is not empty
+
+#                 # Translate 'worship_practices_and_rituals' to Malayalam
+#                 chunk_size = 2000
+#                 translated_text_ml = ""
+#                 for chunk in textwrap.wrap(record.architecture_and_design, chunk_size):
+#                     translated = translator.translate(chunk, dest='ml')
+#                     translated_text_ml += translated.text + " "
+                
+#                 # Translate 'about' to Hindi
+#                 translated_text_hi = ""
+#                 for chunk in textwrap.wrap(record.architecture_and_design, chunk_size):
+#                     translated = translator.translate(chunk, dest='hi')
+#                     translated_text_hi += translated.text + " "
+
+#                 # Assign the translated text to the record fields
+#                 record.architecture_and_design_ml = translated_text_ml.strip()
+#                 record.architecture_and_design_hi = translated_text_hi.strip()
+
+#                 # Save the updated record
+#                 record.save()
+
+#                 self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))            
+
+#             # if record.beliefs_and_teachings:
+#             if record.functions_and_services:  # Ensure the field is not empty
+
+#                 # Translate 'about' to Malayalam
+#                 chunk_size = 2000
+#                 translated_text_ml = ""
+#                 for chunk in textwrap.wrap(record.functions_and_services, chunk_size):
+#                     translated = translator.translate(chunk, dest='ml')
+#                     translated_text_ml += translated.text + " "
+                
+#                 # Translate 'about' to Hindi
+#                 translated_text_hi = ""
+#                 for chunk in textwrap.wrap(record.functions_and_services, chunk_size):
+#                     translated = translator.translate(chunk, dest='hi')
+#                     translated_text_hi += translated.text + " "
+
+#                 # Assign the translated text to the record fields
+#                 record.functions_and_services_ml = translated_text_ml.strip()
+#                 record.functions_and_services_hi = translated_text_hi.strip()
+
+#                 # Save the updated record
+#                 record.save()
+
+#                 self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))          
+
+#             # if record.community_life:
+#             if record.community_impact:  # Ensure the field is not empty
+
+#                 # Translate 'about' to Malayalam
+#                 chunk_size = 2000
+#                 translated_text_ml = ""
+#                 for chunk in textwrap.wrap(record.community_impact, chunk_size):
+#                     translated = translator.translate(chunk, dest='ml')
+#                     translated_text_ml += translated.text + " "
+                
+#                 # Translate 'about' to Hindi
+#                 translated_text_hi = ""
+#                 for chunk in textwrap.wrap(record.community_impact, chunk_size):
+#                     translated = translator.translate(chunk, dest='hi')
+#                     translated_text_hi += translated.text + " "
+
+#                 # Assign the translated text to the record fields
+#                 record.community_impact_ml = translated_text_ml.strip()
+#                 record.community_impact_hi = translated_text_hi.strip()
+
+#                 # Save the updated record
+#                 record.save()
+
+#                 self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))         
+
+#             # if record.conclusion:
+#             if record.conclusion:  # Ensure the field is not empty
+
+#                 # Translate 'about' to Malayalam
+#                 chunk_size = 2000
+#                 translated_text_ml = ""
+#                 for chunk in textwrap.wrap(record.conclusion, chunk_size):
+#                     translated = translator.translate(chunk, dest='ml')
+#                     translated_text_ml += translated.text + " "
+                
+#                 # Translate 'about' to Hindi
+#                 translated_text_hi = ""
+#                 for chunk in textwrap.wrap(record.conclusion, chunk_size):
+#                     translated = translator.translate(chunk, dest='hi')
+#                     translated_text_hi += translated.text + " "
+
+#                 # Assign the translated text to the record fields
+#                 record.conclusion_ml = translated_text_ml.strip()
+#                 record.conclusion_hi = translated_text_hi.strip()
+
+#                 # Save the updated record
+#                 record.save()
+
+#                 self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+           
+#             # if record.historical_figures:
+#             if record.governance_and_leadership:  # Ensure the field is not empty
+
+#                 # Translate 'about' to Malayalam
+#                 chunk_size = 2000
+#                 translated_text_ml = ""
+#                 for chunk in textwrap.wrap(record.governance_and_leadership, chunk_size):
+#                     translated = translator.translate(chunk, dest='ml')
+#                     translated_text_ml += translated.text + " "
+                
+#                 # Translate 'about' to Hindi
+#                 translated_text_hi = ""
+#                 for chunk in textwrap.wrap(record.governance_and_leadership, chunk_size):
+#                     translated = translator.translate(chunk, dest='hi')
+#                     translated_text_hi += translated.text + " "
+
+#                 # Assign the translated text to the record fields
+#                 record.governance_and_leadership_ml = translated_text_ml.strip()
+#                 record.governance_and_leadership_hi = translated_text_hi.strip()
+
+#                 # Save the updated record
+#                 record.save()
+
+#                 self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+
+#             if record.notable_features:  # Ensure the field is not empty
+
+#                 # Translate 'about' to Malayalam
+#                 chunk_size = 2000
+#                 translated_text_ml = ""
+#                 for chunk in textwrap.wrap(record.notable_features, chunk_size):
+#                     translated = translator.translate(chunk, dest='ml')
+#                     translated_text_ml += translated.text + " "
+                
+#                 # Translate 'about' to Hindi
+#                 translated_text_hi = ""
+#                 for chunk in textwrap.wrap(record.notable_features, chunk_size):
+#                     translated = translator.translate(chunk, dest='hi')
+#                     translated_text_hi += translated.text + " "
+
+#                 # Assign the translated text to the record fields
+#                 record.notable_features_ml = translated_text_ml.strip()
+#                 record.notable_features_hi = translated_text_hi.strip()
+
+#                 # Save the updated record
+#                 record.save()
+
+#                 self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+           
+
+#             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+
+# ---------------------------------------------------------------------------------------------------------------------------------#
+        # for record in MajorCelebrationHistoricalEvent.objects.all():
+        #     # Translate the 'about' field to different languages
+        #     if not record.about_hi:
+        #         if record.about:  # Ensure the field is not empty
+
+        #             # Translate 'about' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.about, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+                    
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.about, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.about_ml = translated_text_ml.strip()
+        #             record.about_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+
+        #         # if record.governance_and_structure:
+        #         if record.background:  # Ensure the field is not empty
+        #             # Translate 'about' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.background, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.background, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.background_ml = translated_text_ml.strip()
+        #             record.background_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+            
+        #         # if record.worship_practices_and_rituals:
+        #         if record.the_event:  # Ensure the field is not empty
+
+        #             # Translate 'worship_practices_and_rituals' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.the_event, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+                    
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.the_event, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.the_event_ml = translated_text_ml.strip()
+        #             record.the_event_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))            
+
+        #         # if record.beliefs_and_teachings:
+        #         if record.impact_and_significance:  # Ensure the field is not empty
+
+        #             # Translate 'about' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.impact_and_significance, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+                    
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.impact_and_significance, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.impact_and_significance_ml = translated_text_ml.strip()
+        #             record.impact_and_significance_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))          
+
+        #         # if record.community_life:
+        #         if record.commemoration:  # Ensure the field is not empty
+
+        #             # Translate 'about' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.commemoration, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+                    
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.commemoration, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.commemoration_ml = translated_text_ml.strip()
+        #             record.commemoration_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))         
+
+        #         # if record.conclusion:
+        #         if record.conclusion:  # Ensure the field is not empty
+
+        #             # Translate 'about' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.conclusion, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+                    
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.conclusion, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.conclusion_ml = translated_text_ml.strip()
+        #             record.conclusion_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+            
+        #         self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+        #     print("Item Skipped")
+
+# ---------------------------------------------------------------------------------------------------------------------------------#
+
+        # for record in InstitutionBuilding.objects.all():
+        #     # Translate the 'about' field to different languages
+        #     if not record.about_hi:
+        #         if record.about:  # Ensure the field is not empty
+
+        #             # Translate 'about' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.about, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+                    
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.about, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.about_ml = translated_text_ml.strip()
+        #             record.about_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+
+        #         # if record.governance_and_structure:
+        #         if record.history:  # Ensure the field is not empty
+        #             # Translate 'about' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.history, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.history, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.history_ml = translated_text_ml.strip()
+        #             record.history_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+            
+        #         # if record.worship_practices_and_rituals:
+        #         if record.mission_and_values:  # Ensure the field is not empty
+
+        #             # Translate 'worship_practices_and_rituals' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.mission_and_values, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+                    
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.mission_and_values, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.mission_and_values_ml = translated_text_ml.strip()
+        #             record.mission_and_values_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))            
+
+        #         # if record.beliefs_and_teachings:
+        #         if record.services_and_programs:  # Ensure the field is not empty
+
+        #             # Translate 'about' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.services_and_programs, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+                    
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.services_and_programs, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.services_and_programs_ml = translated_text_ml.strip()
+        #             record.services_and_programs_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))          
+
+        #         # if record.community_life:
+        #         if record.impact_and_reach:  # Ensure the field is not empty
+
+        #             # Translate 'about' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.impact_and_reach, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+                    
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.impact_and_reach, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.impact_and_reach_ml = translated_text_ml.strip()
+        #             record.impact_and_reach_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))         
+
+        #         # if record.conclusion:
+        #         if record.governance_and_leadership:  # Ensure the field is not empty
+
+        #             # Translate 'about' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.governance_and_leadership, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+                    
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.governance_and_leadership, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.governance_and_leadership_ml = translated_text_ml.strip()
+        #             record.governance_and_leadership_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+                
+        #         if record.notable_achievements:  # Ensure the field is not empty
+
+        #             # Translate 'about' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.notable_achievements, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+                    
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.notable_achievements, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.notable_achievements_ml = translated_text_ml.strip()
+        #             record.notable_achievements_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+                
+        #         if record.conclusion:  # Ensure the field is not empty
+
+        #             # Translate 'about' to Malayalam
+        #             chunk_size = 1700
+        #             translated_text_ml = ""
+        #             for chunk in textwrap.wrap(record.conclusion, chunk_size):
+        #                 translated = translator.translate(chunk, dest='ml')
+        #                 translated_text_ml += translated.text + " "
+                    
+        #             # Translate 'about' to Hindi
+        #             translated_text_hi = ""
+        #             for chunk in textwrap.wrap(record.conclusion, chunk_size):
+        #                 translated = translator.translate(chunk, dest='hi')
+        #                 translated_text_hi += translated.text + " "
+
+        #             # Assign the translated text to the record fields
+        #             record.conclusion_ml = translated_text_ml.strip()
+        #             record.conclusion_hi = translated_text_hi.strip()
+
+        #             # Save the updated record
+        #             record.save()
+
+        #             self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+            
+        #         self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+        #     print("Item Skipped")
+
+# ---------------------------------------------------------------------------------------------------------------------------------#
+        def translate_person(self):
+        # Code for translating fields in the InstitutionBuilding model
+            translator = Translator()
+               # List of fields to translate
+            fields_to_translate = [
+                ('about', 'about_ml', 'about_hi'),
+                ('early_life', 'early_life_ml', 'early_life_hi'),
+                ('key_achievements', 'key_achievements_ml', 'key_achievements_hi'),
+                ('influence_and_legacy', 'influence_and_legacy_ml', 'influence_and_legacy_hi'),
+                ('veneration_recognition', 'veneration_recognition_ml', 'veneration_recognition_hi'),
+                ('conclusion', 'conclusion_ml', 'conclusion_hi'),
+                ('personal_reflections', 'personal_reflections_ml', 'personal_reflections_hi'),
+            ]
+
+            # Process each record
+            for record in Person.objects.all():
+                record_updated = False
+
+                for field_name, ml_field, hi_field in fields_to_translate:
+                    original_text = getattr(record, field_name, "")
+                    
+                    # Skip translation if field is empty or already translated
+                    if not original_text:
+                        continue
+                    if getattr(record, ml_field) and getattr(record, hi_field):
+                        self.stdout.write(self.style.WARNING(
+                            f'Skipping translation for record {record.id} - {field_name} (already translated)'
+                        ))
+                        continue
+
+                    try:
+                        # Translate to Malayalam if not already translated
+                        if not getattr(record, ml_field):
+                            translated_text_ml = ""
+                            for chunk in textwrap.wrap(original_text, 2000):
+                                translated = translator.translate(chunk, dest='ml')
+                                translated_text_ml += translated.text + " "
+                            setattr(record, ml_field, translated_text_ml.strip())
+                            record_updated = True
+
+                        # Translate to Hindi if not already translated
+                        if not getattr(record, hi_field):
+                            translated_text_hi = ""
+                            for chunk in textwrap.wrap(original_text, 2000):
+                                translated = translator.translate(chunk, dest='hi')
+                                translated_text_hi += translated.text + " "
+                            setattr(record, hi_field, translated_text_hi.strip())
+                            record_updated = True
+
+                    except Exception as e:
+                        self.stdout.write(self.style.ERROR(f"Error translating {field_name} for record {record.id}: {e}"))
+
+                # Save the updated record if any translations were made
+                if record_updated:
+                    record.save()
+                    self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+
+    
+    def translate_institution_building(self):
+        # Code for translating fields in the InstitutionBuilding model
+        translator = Translator()
+
+        fields_to_translate = [
+            ('about', 'about_ml', 'about_hi'),
+            ('history', 'history_ml', 'history_hi'),
+            ('mission_and_values', 'mission_and_values_ml', 'mission_and_values_hi'),
+            ('services_and_programs', 'services_and_programs_ml', 'services_and_programs_hi'),
+            ('impact_and_reach', 'impact_and_reach_ml', 'impact_and_reach_hi'),
+            ('governance_and_leadership', 'governance_and_leadership_ml', 'governance_and_leadership_hi'),
+            ('notable_achievements', 'notable_achievements_ml', 'notable_achievements_hi'),
+            ('conclusion', 'conclusion_ml', 'conclusion_hi'),
+        ]
+
+        for record in InstitutionBuilding.objects.all():
+            record_updated = False
+
+            for field_name, ml_field, hi_field in fields_to_translate:
+                original_text = getattr(record, field_name, "")
+
+                # Skip translation if field is empty or already translated
+                if not original_text:
+                    continue
+                if getattr(record, ml_field) and getattr(record, hi_field):
+                    self.stdout.write(self.style.WARNING(
+                        f'Skipping translation for record {record.id} - {field_name} (already translated)'
+                    ))
+                    continue
+
+                try:
+                    # Translate to Malayalam if not already translated
+                    if not getattr(record, ml_field):
+                        translated_text_ml = ""
+                        for chunk in textwrap.wrap(original_text, 1700):
+                            translated = translator.translate(chunk, dest='ml')
+                            translated_text_ml += translated.text + " "
+                        setattr(record, ml_field, translated_text_ml.strip())
+                        record_updated = True
+
+                    # Translate to Hindi if not already translated
+                    if not getattr(record, hi_field):
+                        translated_text_hi = ""
+                        for chunk in textwrap.wrap(original_text, 1700):
+                            translated = translator.translate(chunk, dest='hi')
+                            translated_text_hi += translated.text + " "
+                        setattr(record, hi_field, translated_text_hi.strip())
+                        record_updated = True
+
+                except Exception as e:
+                    self.stdout.write(self.style.ERROR(f"Error translating {field_name} for record {record.id}: {e}"))
+
+            # Save the updated record if any translations were made
+            if record_updated:
+                record.save()
+                self.stdout.write(self.style.SUCCESS(f'Successfully translated and updated record {record.id}'))
+
+        self.stdout.write(self.style.SUCCESS("Translation process completed"))

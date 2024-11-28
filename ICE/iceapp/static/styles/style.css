@@ -1,0 +1,437 @@
+:root {
+  --primary-color: #ffffff;
+  --secondary-color: #ffffff;
+  --tertiary-color: #f8f8f8;
+  --color: #a7d7f9;
+  --text-color: #333333;
+  --dark-text-color: #2c2c2c;
+  --link-color: #0645ad;
+  --headings: #1D3557;
+  --links: #007BFF;
+  --accent-color-gold: #FFD700;
+  --accent-color-green: #28A745;
+  --accent-color-orange: #FF9F1C;
+  --dividers-beige: #F5F5DC;
+  --divider-green: #E0E9D1;
+  --divider-olive: #E9F1DF;
+
+}
+
+.blocker {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  color: #fff;
+  display: none;
+  padding: 10px;
+  z-index: -100;
+}
+
+@media only screen and (max-width: 500px) {
+  .blocker {
+    display: grid;
+    z-index: 100;
+  }
+}
+
+*:focus {
+  outline: none; 
+}
+
+body {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: normal;
+  text-align: justify;
+  margin: 0;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between;
+}
+
+header {
+  background-color: var(--secondary-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin-bottom: 10px;
+  border-bottom: 2px var(--color) solid;
+}
+
+h1 {
+  font-size: 36px;
+  margin: 0;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin: 10px 10px;
+}
+
+nav ul li a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+header h1 a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
+header img {
+  width: 36px;
+  margin-bottom: -5px;
+  margin-right: 5px;
+}
+
+main ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+main li {
+  margin: 10px 0;
+}
+
+main h2 {
+  font-size: 24px;
+  margin: 0 0 10px 0;
+}
+
+code {
+  background-color: var(--text-color);
+  color: var(--primary-color);
+  font-size: 14px;
+  padding: 0 5px 0 5px;
+}
+
+a {
+  color: var(--links);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+article {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+article img {
+  float: right;
+  border: 2px var(--text-color) solid;
+  margin: 10px;
+  padding: 0;
+  background-color: none;
+  max-width: 400px;
+}
+
+article img:hover {
+  cursor: help;
+}
+
+article .subtitle {
+  color: var(--dark-text-color);
+  font-size: 18px
+}
+
+article .title {
+  text-align: left;
+}
+
+article .toc {
+  float: right;
+  padding: 5px;
+  margin: 0;
+  margin-top: 10px;
+  font-size: 15px;
+  background-color: var(--color);
+  border: 2px var(--dark-text-color) solid;
+  cursor: pointer;
+}
+
+article .lastupdated {
+  margin-top: -11px;
+}
+
+article .lastupdated, .created {
+  font-size: 13px;
+  font-style: oblique;
+}
+
+article .topics {
+  float: right;
+  padding: 5px;
+  width: fit-content;
+  margin: 0;
+  background-color: var(--secondary-color);
+  border: 2px var(--color) solid;
+}
+
+article .topics p {
+  margin: 0;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  margin: 0;
+}
+
+main>section {
+  background-color: var(--tertiary-color);
+  color: var(--text-color);
+  width: 600px;
+  height: auto;
+  padding: 20px;
+  margin: 10px;
+  border: 2px var(--color) solid;
+}
+
+main>section:hover {
+  border: 2px var(--text-color) solid;
+}
+
+.articles>section {
+  width: 379px;
+}
+
+.huge {
+  width: 1265px;
+  height: auto;
+  text-align: center;
+}
+
+.articles {
+  text-align: center;
+}
+
+.popup {
+  padding: 20px;
+  background-color: var(--primary-color);
+  box-shadow: 0px 0px 0px 1000px #0000009d;
+  border: 2px var(--text-color) solid;
+}
+
+.popup button {
+  border: 2px var(--text-color) solid;
+  background-color: var(--color);
+  margin-left: 10px;
+}
+
+.popup h2 {
+  margin: 0;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.gsc-control-cse {
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.gsc-search-box {
+  margin-top: -5px;
+}
+
+footer {
+  border-top: 2px var(--color) solid;
+  margin-top: 20px;
+  background-color: var(--secondary-color);
+  padding: 10px;
+  text-align: center;
+  position: static;
+  bottom: 0;
+  width: 100%;
+}
+/* --------------------------------- */
+.thumbdown{
+  color: red;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 350px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: #ffffff;
+  background-color: #000000;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 0%; /* Position above the button */
+  left: 250%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.6;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+      /* Hide default button styling */
+      .icon-button {
+        background: none;  /* Removes the background color */
+        border: none;      /* Removes the border */
+        padding: 0;        /* Removes default padding */
+        margin: 0;         /* Removes default margin */
+        cursor: pointer;   /* Changes cursor to pointer */
+        font-size: 24px;   /* Adjust icon size if needed */
+        color: #007bff;
+    }
+    /* Optionally add styles for hover or active states */
+    .icon-button:hover {
+        color: #007bff;  /* Change color on hover, adjust as needed */
+    }
+    
+    .icon-button:focus {
+        outline: none;   /* Removes the focus outline */
+    }
+
+    
+    .trash i {
+      transition: all 0.3s ease;
+  }
+
+  .trash:hover i::before {
+      content: "\F5DE"; /* Font Awesome trash icon */
+  }
+
+  .trash:hover i::before {
+      content: "\F5DD"; /* Change to another icon on hover, e.g., Font Awesome close icon */
+  }
+
+  #comments-section .comment {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: normal;
+    position: relative;
+    flex-direction: column;
+}
+
+#comments-section .comment p {
+    margin: 0;
+    flex: 1; /* Allow the text to take up available space */
+}
+
+#comments-section .comment small {
+    color: #999;
+    margin-left: 10px;
+}
+
+#comments-section .delete-comment-form {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%); /* Center the button vertically */
+}
+
+#comments-section .trash {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+}
+
+#comments-section .trash i {
+    font-size: 16px;
+    color: #ff0000; /* Red color for the trash icon */
+}
+
+
+
+.add-comment-form {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+.add-comment-form .form-group {
+    margin-bottom: 15px;
+}
+
+.add-comment-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.add-comment-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.add-comment-form .btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.add-comment-form .btn:hover {
+    background-color: #0056b3;
+}
+
+.load-more-comments {
+  color: rgb(0, 0, 0);
+  border: 2px solid #000; /* Border color */
+  background-color: #f0f0f0; /* Button background color */
+  border-radius: 12px; /* Rounded corners */
+  padding: 10px 20px; /* Padding inside the button */
+  cursor: pointer;
+  margin-left: 40%;
+  margin-top: 15px;
+  font-size: 15px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  transition: background-color 0.3s, border-color 0.3s; /* Smooth transition for hover effects */
+}
+
+.load-more-comments:hover {
+  background-color: #6d6868c5; /* Button background color on hover */
+  border-color: #000000; /* Border color on hover */
+}

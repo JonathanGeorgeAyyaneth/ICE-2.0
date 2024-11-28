@@ -1,0 +1,366 @@
+{%load static%}
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Indian Christians Info</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="{% static 'styles/main.css' %}" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        <style>
+.autocomplete-suggestions {
+    display: none;
+    border: 1px solid #ccc;
+    max-height: 50%;
+    overflow-y: auto;
+    position: absolute; /* Adjust as needed */
+    background: white;
+    z-index: 1000;
+    width: 100%; /* Ensure suggestions cover the width of the input */
+}
+
+.autocomplete-suggestion {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.autocomplete-suggestion:hover {
+    background: #00000029;
+}
+
+.search-container {
+    position: relative;
+    display: inline-block;
+    width: 100%; /* Ensure container takes up full width if needed */
+}
+
+#search-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    position: relative; /* Ensure relative positioning for absolute children */
+}
+
+#search-input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.clear-button {
+    position: absolute;
+    padding: 0%;
+    right: 5%; /* Adjust position inside the search box */
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 150%; /* Adjust size if needed */
+    color: #666;
+    z-index: 10;
+}
+
+.search-button {
+    padding: 0px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute; /* Position inside search box */
+    right: 20%; /* Align to the right of the container */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 130%;
+}
+
+@media (max-width: 768px) {
+    #search-box {
+        font-size: 14px; /* Smaller font size for mobile */
+        padding-right: 50px; /* Adjust padding for mobile view */
+    }
+
+    .clear-button {
+        right: 40px; /* Adjust position for mobile view */
+        font-size: 14px; /* Adjust size if needed */
+    }
+
+    .search-button {
+        right: 10px; /* Adjust position for mobile view */
+        font-size: 14px; /* Adjust size if needed */
+    }
+}
+
+@media (max-width: 480px) {
+    #search-box {
+        font-size: 12px; /* Even smaller font size for very small screens */
+        padding-right: 40px; /* Adjust padding for very small screens */
+    }
+
+    .clear-button {
+        right: 30px; /* Adjust position for very small screens */
+        font-size: 12px; /* Adjust size if needed */
+    }
+
+    .search-button {
+        right: 5px; /* Adjust position for very small screens */
+        font-size: 12px; /* Adjust size if needed */
+    }
+}
+
+
+        </style>
+    </head>
+    <body class="is-preload">
+        <!-- Wrapper -->
+        <div id="wrapper">
+            <!-- Main -->
+            <div id="main">
+                <div class="inner">
+                    <!-- Header -->
+                    <header id="header">
+                        <a href="{% url '2index'%}" class="logo"><strong>Indian Christians Info</strong></a>
+                        <ul class="icons">
+                            {%if user.is_authenticated%}
+                                <li>Welcome {{user.first_name}}</li>
+                                <li><a href="#" onclick="document.getElementById('logout-form').submit();" style="border-bottom-width: 0px;"><i class="bi bi-box-arrow-right"></i></a></li>
+                                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                                        {% csrf_token %}
+                                        <button type="submit">Logout</button>
+                                    </form>
+                            {%else%}
+                                <li><a href="{% url 'login' %}">Login page</a></li>
+                            {%endif%}
+                        </ul>
+                    </header>
+
+                    <!-- Banner -->
+                    <section id="banner">
+                        <div class="content">
+                            <header>
+                                <h1>Welcome to ICE<br/>
+                                </h1>
+                                <p>A free information repository about christians</p>   
+                            </header>
+                            <p>You can navigate through the content with the menu on the left side or using the search box.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button big">More about ICE</a></li>
+                            </ul>
+                        </div>
+                        <span class="image object" style="height: auto;width:auto;">
+                            <img src="{% static 'img/icelogo.jpg' %}" alt="" />
+                        </span>
+                    </section>
+
+                    <!-- Section -->
+
+                    <!-- Section -->
+                    <section>
+                        <header class="major">
+                            <h2>Random Articles</h2>
+                        </header>
+                        <div class="posts">
+                            {% for article in articles_data %}
+                            <article>
+                                <a href="{{ article.url }}" class="image">
+
+                                    <img src="{{ article.image|default:'/static/img/default.png' }}" alt="{{ article.name }}" />
+                                </a>
+                                <h3>{{ article.name }}</h3>
+                                <p>{{ article.about }}</p>
+                                <ul class="actions">
+                                    <li><a href="{{ article.url }}" class="button">Read More</a></li>
+                                </ul>
+                            </article>
+                            {% endfor %}
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div id="sidebar">
+                <div class="inner">
+                    <!-- Search -->
+                    <!-- <section id="search" class="alt">
+                        <form method="post" action="{% url 'search_results' %}">
+                            <input type="text" name="q" id="search-box" placeholder="Search" required/>
+                            
+                                <button type="button" id="clear-button" class="clear-button" aria-label="Clear search">✖</button>
+                                <button type="submit" class="search-button"><i class="bi bi-search"></i></button>
+
+                        </form>
+                        <div id="results" class="autocomplete-suggestions"></div>
+                    </section> -->
+
+
+                    <section id="search" class="alt" style="
+                    margin-bottom: 0px;
+                    padding-bottom: 0px;
+                ">
+                        <form method="post" action="{% url 'search_results' %}" class="search-container">
+                            {%csrf_token%}
+                            <div id="search-box">
+                                <input type="text" name="q" id="search-box-field" placeholder="Search" required/>
+                                <button type="button" id="clear-button" class="clear-button" aria-label="Clear search">✖</button>
+                                <button type="submit" class="search-button"><i class="bi bi-search"></i></button>
+                            </div>
+                        </form>
+                        <div id="results" class="autocomplete-suggestions" style="width: 276.6px;"></div>
+                    </section>
+                    
+
+
+
+
+
+                    <script>
+                        document.getElementById('search-box-field').addEventListener('input', function() {
+                  var query = this.value;
+                  var resultsDiv = document.getElementById('results');
+              
+                  if (query.length > 1) {
+                      fetch(`/iceapp/search_suggestions/?q=${query}`)
+                          .then(response => response.json())
+                          .then(data => {
+                              resultsDiv.innerHTML = ''; // Clear previous results
+                              if (data && Array.isArray(data.suggestions) && data.suggestions.length > 0) {
+                                  resultsDiv.style.display = 'block'; // Show the div
+                                  data.suggestions.forEach(suggestion => {
+                                      var div = document.createElement('div');
+                                      div.classList.add('autocomplete-suggestion');
+                                      div.innerHTML = `<span>${suggestion.name}</span> <span class="suggestion-type">(${suggestion.type})</span>`;
+                                      div.addEventListener('click', function() {
+                                          window.location.href = suggestion.url; // Redirect to the URL
+                                      });
+                                      resultsDiv.appendChild(div);
+                                  });
+                              } else {
+                                  resultsDiv.style.display = 'none'; // Hide the div if no suggestions
+                                  console.error('Expected object with "suggestions" array, got:', data);
+                              }
+                          })
+                          .catch(error => {
+                              resultsDiv.style.display = 'none'; // Hide the div if there's an error
+                              console.error('Error fetching suggestions:', error);
+                          });
+                  } else {
+                      resultsDiv.style.display = 'none'; // Hide the div if query is empty
+                  }
+              });
+              
+              document.getElementById('clear-button').addEventListener('click', function() {
+                  var searchBox = document.getElementById('search-box-field');
+                  var resultsDiv = document.getElementById('results');
+              
+                  // Clear the search box
+                  searchBox.value = '';
+              
+                  // Clear the search results
+                  resultsDiv.innerHTML = '';
+                  resultsDiv.style.display = 'none'; // Hide the div
+              
+                  // Optionally, you can also trigger the search action to hide results
+                  // document.getElementById('search-form').submit(); // Uncomment if you want to submit the form
+              });
+              
+                    </script>
+
+                    <!-- Menu -->
+                    <nav id="menu" style="
+                    margin-bottom: 0px;
+                    border-bottom-width: 0px;
+                    padding-bottom: 20px;
+                ">
+                        <header class="major">
+                            <h2>Categories</h2>
+                        </header>
+                        <ul>
+                            <li>
+                                <span class="opener">Church Communities</span>
+                                <ul>
+                                    {% for item in categories.community %}
+                                    <li><a href="{% url 'category_view' item %}">{{item}}</a></li>
+                                    {%endfor%}
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="opener">Institutions</span>
+                                <ul>
+                                    {% for item in categories.Institution %}
+                                    <li><a href="{% url 'category_view' item %}">{{item}}</a></li>
+                                    {%endfor%}
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="opener">Religious Centers</span>
+                                <ul>
+                                    {% for item in categories.church %}
+                                    <li><a href="{% url 'category_view' item %}">{{item}}</a></li>
+                                    {%endfor%}
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="opener">Events & Celebrations</span>
+                                <ul>
+                                    {% for item in categories.event %}
+                                    <li><a href="{% url 'category_view' item %}">{{item}}</a></li>
+                                    {%endfor%}
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="opener">People</span>
+                                <ul>
+                                    {% for item in categories.Person %}
+                                    <li><a href="{% url 'category_view' item %}">{{item}}</a></li>
+                                    {%endfor%}
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <!-- Section -->
+                    <!-- Section -->
+                    <section style="
+                    margin-bottom: 0px;
+                    border-bottom-width: 0px;
+                    padding-bottom: 20px;
+                ">
+                        <header class="major">
+                            <h2>Get in touch</h2>
+                        </header>
+                        <ul class="contact">
+                            <li class="icon solid fa-envelope"><a href="mailto:">mail@triompheit.com</a></li>
+                            <li class="icon solid fa-phone">:+91 8111953953</li>
+                        </ul>
+                    </section>
+
+                    <!-- Footer -->
+                    <footer id="footer">
+                        <p class="copyright"> Copyright &copy; 2024 <a href="https://triompheit.com/">Triomphe IT Solutions.</a> <br>All Rights Reserved .</p>
+                    </footer>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Scripts -->
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/browser.min.js' %}"></script>
+        <script src="{% static 'js/breakpoints.min.js' %}"></script>
+        <script src="{% static 'js/util.js' %}"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+
+    </body>
+</html>

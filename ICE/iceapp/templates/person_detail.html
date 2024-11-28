@@ -1,0 +1,285 @@
+{% load custom_filters split_paragraphs link%}
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="{%static 'styles/font.css' %}">
+    <link rel="stylesheet" type="text/css" href="{%static 'styles/style.css' %}">
+    <script src="{%static 'js/info.js' %}"></script>
+    <script src="{%static 'js/toc.js' %}"></script>
+    <link rel="icon" type="x-icon" href="{%static 'img/encycloplate.png' %}">
+    <title>Indian Christians Info</title>
+    <meta name="description" content="">
+    <meta name="author" content="TriompheIT">
+    <meta name="keywords" content="History, Christians, Encyclopedia, Christianity, Catholics">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+<body>
+  <header>
+    <h1><img src="{%static 'img/encycloplate.png' %}"><a href="{%url '2index'%}">Indian Christians Info</a></h1>
+    <nav>
+      <ul>
+        {%if user.is_authenticated%}
+        <li>Welcome {{user.first_name}}</li>
+        <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form>
+        <a href="#" onclick="document.getElementById('logout-form').submit();" style="padding-top: 10px;"><i class="bi bi-box-arrow-right"></i></a>
+        {%else%}
+        <li><a href="{% url 'login' %}">Login page</a></li>
+        {%endif%}
+      </ul>
+    </nav>
+  </header>
+
+  <article>
+    <p class="toc" onclick="informtoc();">Table Of Contents</p>
+    <h1 class="title">{{ person.name }}</h1>
+    <p class="created">Created by {{person.created_by}} | On {{person.created_at|date:"d-M-Y" }}</p>
+    <p class="lastupdated">Last updated on {{person.updated_at|date:"d-M-Y" }}</p>
+    <hr>
+<u><p><h2>About</h2></p></u>
+{% if person.about_image %}
+    <p><img onclick="inform('Photo of {{person.name}}')"src="{{ person.about_image.url }}" alt="Photo of {{person.name}}" style="float: left;"></p>
+{%endif%}
+{{ person.about|linkify_article|split_paragraphs|safe }}
+<!-- ------------------------------------------------------------------------------------------ -->
+{% if person.early_life %}
+<br><br>
+<u><p><h2>Early Life</h2></p></u>
+{% if person.early_life_image %}
+    <p><img onclick="inform('Photo of Early Life')"src= "{{ person.early_life_image.url }}" alt="Early Life"></p>
+{%endif%}
+{{ person.early_life|linkify_article|split_paragraphs|safe }}
+{%endif%}
+<!-- ------------------------------------------------------------------------------------------ -->
+{% if person.key_achievements %}
+<br><br>
+<u><p><h2>Key Achievements</h2></p></u>
+{% if person.key_achievements_image %}
+    <p><img onclick="inform('Photo of Key Achievements')"src="{{ person.key_achievements_image.url }}" alt="Photo of Key Achievements" style="float: left;"></p>
+{%endif%}
+{{ person.key_achievements|linkify_article|split_paragraphs|safe }}
+{%endif%}
+<!-- ------------------------------------------------------------------------------------------ -->
+{% if person.influence_and_legacy %}
+<br><br>
+<u><p><h2>Influence and Legacy</h2></p></u>
+{% if person.influence_and_legacy_image %}
+    <p><img onclick="inform('Photo of Influence and Legacy')" src="{{ person.influence_and_legacy_image.url }}" alt="Photo of Influence and Legacy"></p>
+{%endif%}
+{{ person.influence_and_legacy|linkify_article|split_paragraphs|safe }}
+{%endif%}
+<!-- ------------------------------------------------------------------------------------------ -->
+{% if person.veneration_recognition %}
+<br><br>
+<u><p><h2>Veneration/Recognition</h2></p></u>
+{% if person.veneration_recognition_image %}
+    <p><img onclick="inform('Photo of Veneration/Recognition')"src="{{ person.veneration_recognition_image.url }}" alt="Photo of Veneration/Recognition" style="float: left;"></p>
+{%endif%}
+{{ person.veneration_recognition|linkify_article|split_paragraphs|safe }}
+{%endif%}
+<!-- ------------------------------------------------------------------------------------------ -->
+{% if person.personal_reflections %}
+<br><br>
+<u><p><h2>Personal Reflections</h2></p></u>
+{% if person.personal_reflections_image %}
+    <p><img onclick="inform('Photo of Personal Reflections')"src="{{ person.personal_reflections_image.url }}" alt="Photo of Personal Reflections"></p>
+{%endif%}
+{{ person.personal_reflections|linkify_article|split_paragraphs|safe }}
+{%endif%}
+<!-- ------------------------------------------------------------------------------------------ -->
+{% if person.conclusion %}
+<br><br>
+<u><p><h2>Conclusion</h2></p></u>
+{% if person.conclusion_image %}
+    <p><img onclick="inform('Photo of Conclusion')"src="{{ person.conclusion_image.url }}" alt="Photo of Conclusion" style="float: left;"></p>
+{%endif%}
+{{ person.conclusion|linkify_article|split_paragraphs|safe }}
+{%endif%}
+<!-- ------------------------------------------------------------------------------------------ -->
+
+<br><br>
+<u><p><h2>References</h2></p></u>
+  {{ person.references|link|split_paragraphs|safe }}
+  <!-- like/dislike button start -->
+  {%if user.is_authenticated%}
+  <button id="like-btn" data-action="like" data-id="{{ person.id }}" class="icon-button">
+    {% if user in person.likes.all %}
+    <i class="bi bi-hand-thumbs-up-fill"></i>
+    {% else %}
+    <i class="bi bi-hand-thumbs-up"></i>
+    {% endif %}
+    <span id="likes-count">{{ person.likes.count }}</span>
+</button>
+<button id="dislike-btn" data-action="dislike" data-id="{{ person.id }}" class="icon-button">
+    {% if user in person.dislikes.all %}
+    <i class="bi bi-hand-thumbs-down-fill thumbdown"></i>
+    {% else %}
+    <i class="bi bi-hand-thumbs-down thumbdown"></i>
+    {% endif %}
+    <span id="dislikes-count">{{ person.dislikes.count }}</span>
+</button>
+{%else%}
+<div class="tooltip">
+<button id="like-btn" data-action="like" data-id="{{ person.id }}" class="icon-button">
+  {% if user in person.likes.all %}
+  <i class="bi bi-hand-thumbs-up-fill"></i><span class="tooltiptext">Please Log-In to interact with this article</span></i>
+  {% else %}
+  <i class="bi bi-hand-thumbs-up"></i><span class="tooltiptext">Please Log-In to interact with this article</span></i>
+  {% endif %}
+  <span id="likes-count">{{ person.likes.count }}</span>
+</button>
+<button id="dislike-btn" data-action="dislike" data-id="{{ person.id }}" class="icon-button">
+  {% if user in person.dislikes.all %}
+  <i class="bi bi-hand-thumbs-down-fill thumbdown"></i><span class="tooltiptext">Please Log-In to interact with this article</span></i>
+  {% else %}
+  <i class="bi bi-hand-thumbs-down thumbdown"></i><span class="tooltiptext">Please Log-In to interact with this article</span></i>
+  {% endif %}
+  <span id="dislikes-count">{{ person.dislikes.count }}</span>
+</button></div>
+{%endif%}
+<script>
+  $(document).ready(function() {
+      $('#like-btn, #dislike-btn').click(function() {
+          var button = $(this);
+          var action = button.data('action');
+          var objectId = button.data('id');
+          var url = '{% url "like_or_dislike" "person" 0 "action" %}'.replace("0", objectId).replace("action", action);
+
+          
+          $.ajax({
+              url: url,
+              method: 'GET',
+              success: function(response) {
+                  $('#likes-count').text(response.likes_count);
+                  $('#dislikes-count').text(response.dislikes_count);
+                  
+                  // Update Like Button Icon
+                  if (response.user_has_liked) {
+                      $('#like-btn i').removeClass('bi bi-hand-thumbs-up').addClass('bi bi-hand-thumbs-up-fill');
+                  } else {
+                      $('#like-btn i').removeClass('bi bi-hand-thumbs-up-fill').addClass('bi bi-hand-thumbs-up');
+                  }
+
+                  // Update Dislike Button Icon
+                  if (response.user_has_disliked) {
+                      $('#dislike-btn i').removeClass('bi bi-hand-thumbs-down thumbdown').addClass('bi bi-hand-thumbs-down-fill thumbdown');
+                  } else {
+                      $('#dislike-btn i').removeClass('bi bi-hand-thumbs-down-fill thumbdown').addClass('bi bi-hand-thumbs-down thumbdown');
+                  }
+              },
+              error: function(xhr) {
+                  console.log('Error:', xhr.responseText);
+              }
+          });
+      });
+  });
+</script>
+<!-- like/dislike button end -->
+ <!-- comment section start -->
+ <form class="add-comment-form" action="{% url 'add_comment' content_type.id object.id %}" method="POST" id="add-comment-form">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">Add Comment</button>
+</form>
+
+
+
+<div id="comments-section">
+    {% for comment in comments %}
+        <div class="comment" style="{% if forloop.counter > 5 %}display: none;{% endif %}">
+            <p><b>{{ comment.user.first_name}}</b> commented <br>{{ comment.comment }}</p>
+            <small class="comment-time" data-time="{{ comment.created_at|date:'c' }}"></small>
+            <form class="delete-comment-form" action="{% url 'delete_comment' comment.id %}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="trash"><i class="bi bi-trash"></i></button>
+            </form>
+        </div>
+    {% endfor %}
+</div>
+
+{% if comments|length > 5 %}
+<button id="load-more-comments" data-next-page="2" data-content-type-id="{{ content_type.id }}" data-object-id="{{ object.id }}" class="load-more-comments">Load More Comments &nbsp; <i class="bi bi-chevron-double-down"></i></button>
+{% endif %}
+
+
+<script>
+    $(document).ready(function() {
+        // Add comment form submission
+        $('form.add-comment-form').on('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const $form = $(this);
+            $.ajax({
+                type: 'POST',
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        location.reload(); // Reload the page on success
+                    } else {
+                        alert('Please Log in to leave a comment');
+                    }
+                },
+                error: function(response) {
+                    alert('Content in the text field is required');
+                }
+            });
+        });
+    
+    // Delete comment form submission
+    $('form.delete-comment-form').on('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        const $form = $(this);
+
+        // Get the CSRF token from the cookie
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        $.ajax({
+            type: 'POST',
+            url: $form.attr('action'),
+            data: $form.serialize(),
+            headers: {
+                'X-CSRFToken': csrftoken // Include the CSRF token
+            },
+            success: function(response) {
+                if (response.success) {
+                    location.reload(); // Reload the page on success
+                } else {
+                    alert(response.error);
+                }
+            },
+            error: function(response) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    });
+    //load comments 
+    
+    $(document).ready(function() {
+    $('#load-more-comments').on('click', function() {
+        // Show the next 5 hidden comments
+        var hiddenComments = $('#comments-section .comment:hidden');
+        if (hiddenComments.length > 0) {
+            hiddenComments.slice(0, 5).slideDown();
+        }
+
+        // If no more hidden comments, hide the button
+        if ($('#comments-section .comment:hidden').length == 0) {
+            $('#load-more-comments').hide();
+        }
+    });
+});
+    });
+
+
+    </script>
+<!-- comment section end -->
+    </article>
+    <footer>
+      Copyrights © 2024 Indian Christians Info - <a href="https://www.triompheit.com/" style="text-decoration: none; color: inherit;" target="_blank">Powered By Triomphe IT Solutions</a>
+    </footer>
+</body>
+</html>

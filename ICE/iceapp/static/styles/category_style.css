@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+header {
+    background: linear-gradient(135deg, #043ea3, #48CFCB);
+    padding: 20px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.505);
+}
+
+.title {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+}
+
+/* Remove background from main to let header gradient flow */
+main {
+    max-width: 1200px;
+    margin: 0 auto; /* Center the main content */
+    padding: 20px; 
+    /* Removed background gradient here */
+}
+
+
+
+.category-card {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent for better visibility */
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+.category-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #000000;
+    text-align: center; /* Center the category card headings */
+}
+
+.subheading-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.letter {
+    padding: 10px;
+    background-color: rgba(249, 249, 249, 0.9); /* Slightly transparent for the gradient to show through */
+    border-radius: 8px;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.letter:hover {
+    background-color: #00000064;
+    color: white;
+}
+
+.entries {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.entries li {
+    padding: 5px 0;
+}
+

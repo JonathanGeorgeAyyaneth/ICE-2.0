@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Main Page</title>
+    <style>
+        .autocomplete-suggestions {
+            border: 1px solid #ddd;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        .autocomplete-suggestion {
+            padding: 8px;
+            cursor: pointer;
+        }
+        .autocomplete-suggestion:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Main Page</h1>
+    <form action="{% url 'search_results' %}" method="get">
+        <input type="text" id="search-box" name="q" placeholder="Search...">
+        <button type="submit"><i class="bi bi-search"></i></button>
+    </form>
+    <div id="results" class="autocomplete-suggestions" style="width: max-content;"></div>
+
+    <script>
+        document.getElementById('search-box').addEventListener('input', function() {
+            var query = this.value;
+            var resultsDiv = document.getElementById('results');
+
+            if (query.length > 1) {
+                fetch(`/iceapp/search_suggestions/?q=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        resultsDiv.innerHTML = ''; // Clear previous results
+                        if (data && Array.isArray(data.suggestions)) {
+                            data.suggestions.forEach(suggestion => {
+                                var div = document.createElement('div');
+                                div.classList.add('autocomplete-suggestion');
+                                div.innerHTML = `<span>${suggestion.name}</span> <span class="suggestion-type">(${suggestion.type})</span>`;
+                                div.addEventListener('click', function() {
+                                    window.location.href = suggestion.url; // Redirect to the URL
+                                });
+                                resultsDiv.appendChild(div);
+                            });
+                        } else {
+                            console.error('Expected object with "suggestions" array, got:', data);
+                        }
+                    })
+                    .catch(error => console.error('Error fetching suggestions:', error));
+            } else {
+                resultsDiv.innerHTML = ''; // Clear results if query is empty
+            }
+        });
+    </script>
+    <h1>All Objects</h1>
+    
+    <h2>Persons</h2>
+    <ul>
+        {% for person in persons %}
+            <li>
+                <a href="{% url 'person_detail' person.id %}">{{ person.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Institutions</h2>
+    <ul>
+        {% for institution in institutions %}
+            <li>
+                <a href="{% url 'institution_building_detail' institution.id %}">{{ institution.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Buildings</h2>
+    <ul>
+        {% for building in buildings %}
+            <li>
+                <a href="{% url 'church_and_other_building_detail' building.id %}">{{ building.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Events</h2>
+    <ul>
+        {% for event in events %}
+            <li>
+                <a href="{% url 'major_celebration_historical_event_detail' event.id %}">{{ event.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

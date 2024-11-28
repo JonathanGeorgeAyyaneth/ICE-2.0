@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+
+<title>Filter search result page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+    	body{margin-top:20px;
+background:#eee;
+}
+
+.btn {
+    margin-bottom: 5px;
+}
+
+.grid {
+    position: relative;
+    width: 100%;
+    background: #fff;
+    color: #666666;
+    border-radius: 2px;
+    margin-bottom: 25px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.grid .grid-body {
+    padding: 15px 20px 15px 20px;
+    font-size: 0.9em;
+    line-height: 1.9em;
+}
+
+.search table tr td.rate {
+    color: #f39c12;
+    line-height: 50px;
+}
+
+.search table tr:hover {
+    cursor: pointer;
+}
+
+.search table tr td.image {
+	width: 50px;
+}
+
+.search table tr td img {
+	width: 50px;
+	height: 50px;
+}
+
+.search table tr td.rate {
+	color: #f39c12;
+	line-height: 50px;
+}
+
+.search table tr td.price {
+	font-size: 1.5em;
+	line-height: 50px;
+}
+
+.search #price1,
+.search #price2 {
+	display: inline;
+	font-weight: 600;
+}
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+   /* Responsive Styles */
+   @media screen and (min-width: 320px) and (max-width: 480px) {
+        /* Styles for mobile devices */
+        .filter-results-container {
+            display: flex; /* Use flexbox to align items */
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .filter-section,
+        .results-section {
+            flex: 1; /* Allow sections to grow equally */
+            margin: 5px; /* Space between sections */
+        }
+
+        .search table tr td {
+            display: block; /* Stack table cells vertically */
+            width: 100%; /* Full width */
+            box-sizing: border-box; /* Include padding and border in width */
+            padding: 10px; /* Add padding */
+            border-bottom: 1px solid #ddd; /* Add bottom border */
+        }
+    }
+
+    @media screen and (min-width: 481px) and (max-width: 768px) {
+        /* Styles for tablet devices */
+        .filter-results-container {
+            display: flex; /* Use flexbox to align items */
+            flex-direction: row; /* Align items in a row */
+            flex-wrap: wrap; /* Allow items to wrap in smaller screens */
+        }
+
+        .filter-section,
+        .results-section {
+            flex: 1; /* Allow sections to grow equally */
+            margin: 5px; /* Space between sections */
+            min-width: 250px; /* Set minimum width */
+        }
+
+        .search table {
+            width: 100%; /* Ensure table takes full width */
+        }
+
+        .search table tr td {
+            display: block; /* Stack table cells vertically */
+            width: 100%; /* Full width */
+            box-sizing: border-box; /* Include padding and border in width */
+            padding: 10px; /* Add padding */
+            border-bottom: 1px solid #ddd; /* Add bottom border */
+        }
+    }
+
+    @media screen and (min-width: 769px) {
+        /* Styles for larger screens (desktops) */
+        .filter-results-container {
+            display: flex; /* Use flexbox to align items */
+            flex-direction: row; /* Align items in a row */
+        }
+
+        .filter-section,
+        .results-section {
+            flex: 1; /* Allow sections to grow equally */
+            margin: 5px; /* Space between sections */
+        }
+    }
+
+    @media screen and (max-width: 430px) {
+    .filter-results-container {
+        flex-direction: column; /* Stack filter and results vertically */
+    }
+
+    .filter-section,
+    .results-section {
+        width: 100%; /* Full width for smaller screens */
+        margin: 0; /* Remove margins */
+        padding: 5px; /* Add padding for better touch targets */
+    }
+
+    .search table tr td {
+        padding: 8px; /* Further reduce padding on small screens */
+    }
+}
+
+@media screen and (max-width: 768px) {
+        .filter-item {
+            flex-direction: row; /* Keep items in a row for mobile */
+            justify-content: space-between; /* Space between items */
+        }
+
+        .filter-item .number,
+        .filter-item .image,
+        .filter-item .product {
+            min-width: auto; /* Remove minimum width restriction */
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        /* Adjust styles for very small screens */
+        .filter-item {
+            flex-direction: column; /* Stack items vertically on very small screens */
+            align-items: flex-start; /* Align items to the left */
+        }
+
+        .filter-item .number {
+            order: 1; /* Number will always be on top */
+        }
+
+        .filter-item .image {
+            order: 2; /* Image comes after the number */
+        }
+
+        .filter-item .product {
+            order: 3; /* Product description comes last */
+        }
+    }
+
+    </style>
+</head>
+<body>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="row">
+
+<div class="col-md-12">
+<div class="grid search">
+<div class="grid-body">
+<div class="row">
+    <div class="filter-results-container">
+<div class="col-md-3">
+<h2 class="grid-title"><i class="fa fa-filter"></i> Filter</h2>
+<hr>
+
+
+<h4>By Starting Letter:</h4>
+<div style="display: inline-table; margin: 5%; margin-top: 0%;">
+{% for letter in "ABCDEFGHIJKLM" %}  
+<div class="checkbox">       
+<label><input type="checkbox" class="letter-checkbox" value="{{letter}}">  {{ letter }}</label>
+</div>
+{% endfor %}
+</div>
+<div style="display: inline-table;">
+{% for letter in "NOPQRSTUVWXYZ" %} 
+<div class="checkbox">
+<label><input type="checkbox" class="letter-checkbox" value="{{letter}}">  {{ letter }}</label>
+</div> {%endfor%}
+</div> 
+
+<div class="padding"></div>
+
+<!-- <h4>By date:</h4>
+From
+<div class="input-group date form_date" data-date="2014-06-14T05:25:07Z" data-date-format="dd-mm-yyyy" data-link-field="dtp_input1">
+<input type="text" class="form-control">
+<span class="input-group-addon bg-blue"><i class="fa fa-th"></i></span>
+</div>
+<input type="hidden" id="dtp_input1" value>
+To
+<div class="input-group date form_date" data-date="2014-06-14T05:25:07Z" data-date-format="dd-mm-yyyy" data-link-field="dtp_input2">
+<input type="text" class="form-control">
+<span class="input-group-addon bg-blue"><i class="fa fa-th"></i></span>
+</div>
+<input type="hidden" id="dtp_input2" value>
+
+<div class="padding"></div>
+
+<h4>By price:</h4>
+Between <div id="price1">$300</div> to <div id="price2">$800</div>
+<div class="slider-primary">
+<div class="slider slider-horizontal" style="width: 152px;"><div class="slider-track"><div class="slider-selection" style="left: 30%; width: 50%;"></div><div class="slider-handle round" style="left: 30%;"></div><div class="slider-handle round" style="left: 80%;"></div></div><div class="tooltip top hide" style="top: -30px; left: 50.1px;"><div class="tooltip-arrow"></div><div class="tooltip-inner">300 : 800</div></div><input type="text" class="slider" value data-slider-min="0" data-slider-max="1000" data-slider-step="1" data-slider-value="[300,800]" data-slider-tooltip="hide"></div>
+</div> -->
+
+</div>
+
+
+<div class="col-md-9">
+    {% if grouped_persons %}
+<h2>
+    <i class="fa fa-file-o"></i> {{category_name}}
+</h2>
+    {%endif%}
+    {% if grouped_institutions %}
+<h2>
+    <i class="fa fa-file-o"></i> {{category_name}}
+</h2>
+    {%endif%}
+    {% if grouped_church_communities %}
+<h2>
+    <i class="fa fa-file-o"></i> {{category_name}}
+</h2>
+    {%endif%}
+    {% if grouped_celebrations %}
+<h2>
+    <i class="fa fa-file-o"></i> {{category_name}}
+</h2>
+    {%endif%}
+    {% if grouped_churches %}
+<h2>
+    <i class="fa fa-file-o"></i> {{category_name}}
+</h2>
+    {%endif%}
+<hr>
+
+<div class="input-group">
+    <input type="text" class="form-control" id="search-box" placeholder="Search here...">
+    <span class="input-group-btn">
+        <button class="btn btn-primary" type="button" id="search-btn"><i class="fa fa-search"></i></button>
+    </span>
+</div>
+
+<p id="result-text">Showing all results</p>
+<div class="padding"></div>
+<div class="row">
+
+<br><br>
+
+<div class="table-responsive">
+<table class="table table-hover">
+<tbody id="table-body">
+
+{% if grouped_persons %}
+{% for letter, persons in grouped_persons %}
+{% for person in persons %}
+<tr class="filter-item">
+<td class="number text-center" style="width: 16px; height: 16.8px;"></td>
+{%if person.about_image%}
+<td class="image"><img src='{{person.about_image.url}}' alt></td>
+{%else%}
+<td class="image"><img src='https://www.bootdey.com/image/400x300/5F9EA0' alt></td>
+{%endif%}
+<td class="product filter-item" style="padding-top: 2.2%;"><strong class="item-name"><a href="{% url 'person_detail' person.id %}">{{person.name}}</A></strong></td>
+</tr>
+{%endfor%}
+{%endfor%}
+{%endif%}
+
+{% if grouped_institutions %}
+{% for letter, institutions in grouped_institutions %}
+{% for institution in institutions %}
+<tr class="filter-item">
+<td class="number text-center" style="width: 16px; height: 16.8px;"></td>
+{%if institution.about_image%}
+<td class="image"><img src='{{institution.about_image.url}}' alt></td>
+{%else%}
+<td class="image"><img src='https://www.bootdey.com/image/400x300/5F9EA0' alt></td>
+{%endif%}
+<td class="product filter-item" style="padding-top: 2.2%;"><strong class="item-name"><a href="{% url 'institution_building_detail' institution.id %}">{{institution.name}}</A></strong></td>
+</tr>
+{%endfor%}
+{%endfor%}
+{%endif%}
+
+{% if grouped_church_communities %}
+{% for letter, communities in grouped_church_communities %}
+{% for community in communities %}
+<tr class="filter-item">
+<td class="number text-center" style="width: 16px; height: 16.8px;"></td>
+{%if community.about_image%}
+<td class="image"><img src='{{community.about_image.url}}' alt></td>
+{%else%}
+<td class="image"><img src='https://www.bootdey.com/image/400x300/5F9EA0' alt></td>
+{%endif%}
+<td class="product filter-item" style="padding-top: 2.2%;"><strong class="item-name"><a href="{% url 'church_community_detail' community.id %}">{{community.name}}</A></strong></td>
+</tr>
+{%endfor%}
+{%endfor%}
+{%endif%}
+
+{% if grouped_celebrations %}
+{% for letter, celebrations in grouped_celebrations %}
+{% for celebration in celebrations %}
+<tr class="filter-item">
+<td class="number text-center" style="width: 16px; height: 16.8px;"></td>
+{%if celebration.about_image%}
+<td class="image"><img src='{{celebration.about_image.url}}' alt></td>
+{%else%}
+<td class="image"><img src='https://www.bootdey.com/image/400x300/5F9EA0' alt></td>
+{%endif%}
+<td class="product filter-item" style="padding-top: 2.2%;"><strong class="item-name"><a href="{% url 'major_celebration_historical_event_detail' celebration.id %}">{{celebration.name}}</A></strong></td>
+</tr>
+{%endfor%}
+{%endfor%}
+{%endif%}
+
+{% if grouped_churches %}
+{% for letter, churches in grouped_churches %}
+{% for church in churches %}
+<tr class="filter-item">
+<td class="number text-center" style="width: 16px; height: 16.8px;"></td>
+{%if church.about_image%}
+<td class="image"><img src='{{church.about_image.url}}' alt></td>
+{%else%}
+<td class="image"><img src='https://www.bootdey.com/image/400x300/5F9EA0' alt></td>
+{%endif%}
+<td class="product filter-item" style="padding-top: 2.2%;"><strong class="item-name"><a href="{% url 'church_and_other_building_detail' church.id %}">{{church.name}}</A></strong></td>
+</tr>
+{%endfor%}
+{%endfor%}
+{%endif%}
+
+</tbody></table>
+</div>
+</div> 
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function () {
+    // Get all checkboxes
+    const checkboxes = document.querySelectorAll('.letter-checkbox');
+    
+    // Function to strip prefixes like "St.", "Dr.", "Mr.", etc.
+    function stripPrefix(name) {
+        const prefixes = ['St.', 'Dr.', 'Mr.', 'Ms.', 'Mrs.', 'Sir', 'Saint'];
+        for (const prefix of prefixes) {
+            if (name.startsWith(prefix)) {
+                return name.substring(prefix.length).trim(); // Remove prefix and trim spaces
+            }
+        }
+        return name;
+    }
+    
+    // Function to filter table rows
+    function filterItems() {
+        // Get all table rows with class 'filter-item'
+        const rows = document.querySelectorAll('.filter-item');
+        
+        // Get all selected letters
+        const selectedLetters = Array.from(checkboxes)
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => checkbox.value);
+        
+        // Filter rows based on selected letters
+        rows.forEach(row => {
+            // Get the name in the span with the class 'item-name' inside the td
+            let name = row.querySelector('.item-name').textContent.trim();
+            
+            // Strip the prefix if necessary
+            name = stripPrefix(name);
+            
+            const firstLetter = name.charAt(0).toUpperCase();
+            
+            if (selectedLetters.length === 0 || selectedLetters.includes(firstLetter)) {
+                row.style.display = ''; // Show the row
+            } else {
+                row.style.display = 'none'; // Hide the row
+            }
+        });
+    }
+    
+    // Add event listeners to checkboxes
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', filterItems);
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const searchBox = document.getElementById('search-box');
+    const resultText = document.getElementById('result-text');
+    const tableBody = document.getElementById('table-body');
+
+    // Function to highlight the search term in the result
+    function highlightText(text, searchQuery) {
+        const regex = new RegExp(`(${searchQuery})`, 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    // Function to filter table rows based on the search query
+    function filterTable(query) {
+        const rows = tableBody.querySelectorAll('tr');
+        let visibleCount = 0;  // Keep track of visible rows
+
+        rows.forEach(row => {
+            const nameCell = row.querySelector('.item-name'); // The cell containing the name
+            const name = nameCell.textContent.trim().toLowerCase();
+            const searchQuery = query.toLowerCase();
+
+            if (name.includes(searchQuery)) {
+                row.style.display = ''; // Show row if it matches the search query
+                visibleCount++;
+
+                // Highlight matching part in the name
+                const originalText = nameCell.textContent;
+                nameCell.innerHTML = highlightText(originalText, query); // Highlight the matching query
+            } else {
+                row.style.display = 'none'; // Hide row if it doesn't match
+            }
+        });
+
+        // Update the result text
+        if (query === '') {
+            resultText.textContent = 'Showing all results';
+        } else if (visibleCount > 0) {
+            resultText.textContent = `Showing all results matching "${query}"`;
+        } else {
+            resultText.textContent = `No results found for "${query}"`;
+        }
+    }
+
+    // Listen for real-time input in the search box
+    searchBox.addEventListener('input', function () {
+        const query = searchBox.value.trim();
+        filterTable(query);
+    });
+
+    // Optional: Search when the search button is clicked
+    document.getElementById('search-btn').addEventListener('click', function () {
+        const query = searchBox.value.trim();
+        filterTable(query);
+    });
+});
+
+
+</script>
+</body>
+</html>
