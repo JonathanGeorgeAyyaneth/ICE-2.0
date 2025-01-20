@@ -577,7 +577,7 @@ def verify_otp(request):
                 del request.session['otp']
 
             messages.success(request, "Signup successful!")
-            return redirect('index')  # Redirect to a dashboard or home page
+            return redirect('2index')  # Redirect to a dashboard or home page
         else:
             messages.error(request, "Invalid OTP. Please try again.")
             return redirect('verify_otp')
