@@ -173,8 +173,9 @@
                             {% for article in articles_data %}
                             <article>
                                 <a href="{{ article.url }}" class="image">
-
+                                    <div style="height: 250px; width: 250px;">
                                     <img src="{{ article.image|default:'/static/img/default.png' }}" alt="{{ article.name }}" />
+                                    </div>
                                 </a>
                                 <h3>{{ article.name }}</h3>
                                 <p>{{ article.about }}</p>
