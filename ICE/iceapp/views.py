@@ -15,6 +15,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from collections import defaultdict
+from django.core.mail import send_mail
+from django.contrib import messages
+from django.conf import settings
 
 
 
@@ -502,3 +505,75 @@ def set_language(request):
 
 def mfa(request):
     return render(request, 'main/verify_otp.html')
+
+
+def signup(request):
+    if request.method == 'POST':
+        # Collect form data
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        # Basic validation
+        if password1 != password2:
+            messages.error(request, "Passwords do not match.")
+            return redirect('signup')
+
+        # Generate and send OTP
+        otp = random.randint(100000, 999999)
+        send_mail(
+            'Your OTP Code',
+            f'Your OTP code is {otp}.',
+            settings.EMAIL_HOST_USER,
+            [email],
+            fail_silently=False,
+        )
+
+        # Store user details and OTP in the session
+        request.session['signup_data'] = {
+            'first_name': first_name,
+            'last_name': last_name,
+            'email': email,
+            'username': username,
+            'password': password1,
+        }
+        request.session['otp'] = otp
+
+        return redirect('verify_otp')
+
+    return render(request, 'login_register.html')
+
+def verify_otp(request):
+    if request.method == 'POST':
+        entered_otp = request.POST.get('otp')
+        session_otp = request.session.get('otp')
+        signup_data = request.session.get('signup_data')
+
+        if int(entered_otp) == session_otp:
+            # Create the user after OTP verification
+            user = User.objects.create_user(
+                username=signup_data['username'],
+                email=signup_data['email'],
+                password=signup_data['password'],
+                first_name=signup_data['first_name'],
+                last_name=signup_data['last_name']
+            )
+            user.save()
+
+            # Log the user in
+            login(request, user)
+
+            # Clear session data
+            del request.session['signup_data']
+            del request.session['otp']
+
+            messages.success(request, "Signup successful!")
+            return redirect('index')  # Redirect to a dashboard or home page
+        else:
+            messages.error(request, "Invalid OTP. Please try again.")
+            return redirect('verify_otp')
+
+    return render(request, 'verify_otp.html')
