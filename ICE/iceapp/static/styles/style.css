@@ -435,3 +435,21 @@ footer {
   background-color: #6d6868c5; /* Button background color on hover */
   border-color: #000000; /* Border color on hover */
 }
+
+.language-dropdown select {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+
+.language-dropdown select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.language-dropdown {
+  margin: 10px 0;
+}

@@ -33,13 +33,15 @@
       </ul>
     </nav>
   </header>
-  <a href="{% url 'set_language' %}?lang=en&next={{ request.path }}">English</a>
-  <a href="{% url 'set_language' %}?lang=ml&next={{ request.path }}">Malayalam</a>
-  <a href="{% url 'set_language' %}?lang=hi&next={{ request.path }}">Hindi</a>
-
-
-
-
+  <div class="language-dropdown">
+    &nbsp;
+    <select onchange="location = this.value;">
+        <option value="#">Switch Language</option>
+        <option value="{% url 'set_language' %}?lang=en&next={{ request.path }}">English</option>
+        <option value="{% url 'set_language' %}?lang=ml&next={{ request.path }}">Malayalam</option>
+        <option value="{% url 'set_language' %}?lang=hi&next={{ request.path }}">Hindi</option>
+    </select>
+</div>
   <article>
     <p class="toc" onclick="informtoc();">Table Of Contents</p>
     <h1 class="title">{{ community.name }}</h1>
@@ -51,11 +53,11 @@
         <p><img onclick="inform('{{ community.about_image.url }}')" src="{{ community.about_image.url }}" alt="Photo of {{ community.name }}" style="float: left;"></p>
     {% endif %}
             {% if LANGUAGE_CODE == 'ml' %}
-            {{ community.about_ml|linkify_article|split_paragraphs|safe }}
- {% elif LANGUAGE_CODE == 'hi' %}
- {{ community.about_hi|linkify_article|split_paragraphs|safe }}
- {% else %}
- {{ community.about|linkify_article|split_paragraphs|safe }} <!-- Default to English -->
+                {{ community.about_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ community.about_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
+                {{ community.about|linkify_article|split_paragraphs|safe }} <!-- Default to English -->
             {% endif %}
     <!-- ------------------------------------------------------------------------------------------ -->
     {% if community.governance_and_structure %}
