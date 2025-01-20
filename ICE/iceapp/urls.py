@@ -25,5 +25,6 @@ urlpatterns = [
     path('load_comments/<str:model_name>/<int:object_id>/<int:offset>/', views.load_comments, name='load_comments'),
     path('add_comment/<int:content_type_id>/<int:object_id>/', views.add_comment, name='add_comment'),
     path('delete_comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
+    path('verify_otp/', views.mfa,name='verify_otp')
 
 ]

@@ -500,3 +500,5 @@ def set_language(request):
     next_url = request.GET.get('next', '/')
     return HttpResponseRedirect(next_url)
 
+def mfa(request):
+    return render(request, 'main/verify_otp.html')
