@@ -15,7 +15,7 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('login/', views.login, name="login"),
     path('login_view/', views.login_view, name="login_view"),
-    # path('signup/', views.signup_view, name="signup"),
+    path('signup/', views.signup, name="signup"),
     path('logout/', LogoutView.as_view(next_page='index'), name='logout'),
 
     path('2index/', views.new_index, name='2index'),
@@ -25,8 +25,7 @@ urlpatterns = [
     path('load_comments/<str:model_name>/<int:object_id>/<int:offset>/', views.load_comments, name='load_comments'),
     path('add_comment/<int:content_type_id>/<int:object_id>/', views.add_comment, name='add_comment'),
     path('delete_comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
-    path('verify_otp/', views.mfa,name='verify_otp'),
-    path('signup/', views.signup, name='signup_2'),
+    # path('verify_otp/', views.mfa,name='verify_otp'),
     path('verify_otp/', views.verify_otp, name='verify_otp'),
 
 

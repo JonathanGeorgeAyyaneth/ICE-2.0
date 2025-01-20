@@ -550,7 +550,11 @@ def verify_otp(request):
     if request.method == 'POST':
         entered_otp = request.POST.get('otp')
         session_otp = request.session.get('otp')
-        signup_data = request.session.get('signup_data')
+        signup_data = request.session.get('signup_data')  # Get the session data
+
+        if not signup_data:
+            messages.error(request, "Session data is missing or expired.")
+            return redirect('signup')  # Redirect to signup if session data is missing
 
         if int(entered_otp) == session_otp:
             # Create the user after OTP verification
@@ -564,11 +568,13 @@ def verify_otp(request):
             user.save()
 
             # Log the user in
-            login(request, user)
+            auth_login(request, user)
 
-            # Clear session data
-            del request.session['signup_data']
-            del request.session['otp']
+            # Clear session data if available
+            if 'signup_data' in request.session:
+                del request.session['signup_data']
+            if 'otp' in request.session:
+                del request.session['otp']
 
             messages.success(request, "Signup successful!")
             return redirect('index')  # Redirect to a dashboard or home page
@@ -576,4 +582,4 @@ def verify_otp(request):
             messages.error(request, "Invalid OTP. Please try again.")
             return redirect('verify_otp')
 
-    return render(request, 'verify_otp.html')
+    return render(request, 'main/verify_otp.html')

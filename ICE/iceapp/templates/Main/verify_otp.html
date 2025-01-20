@@ -1,4 +1,4 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,45 +8,42 @@
   <link rel="stylesheet" type="text/css" href="{% static 'styles/login_register.css' %}">
   <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet">
   <style>
-
-
-.name-fields {
-    display: flex;
-    gap: 10px; /* Adjust spacing between input fields */
-}
-
-.input-group {
-    flex: 1;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input[type="text"] {
-    width: 100%;
-    box-sizing: border-box;
-}
-
+    .name-fields {
+        display: flex;
+        gap: 10px;
+    }
+    .input-group {
+        flex: 1;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input[type="text"] {
+        width: 100%;
+        box-sizing: border-box;
+    }
   </style>
 </head>
 <body>
   <div class="cont" style="height: auto; width: auto;">
     <div class="form sign-in">
-      <form method="POST" enctype="multipart/form-data" action="{% url 'login_view' %}">
-        {%csrf_token%}
-      <h2>OTP Verification</h2>
-      <label>
-        <span>Email</span>
-        <input type="email" name="mail">
-      </label>
-      <label>
-        <span>OTP</span>
-        <input type="password" name="otp">
-      </label>
-      <button class="submit" type="submit"> Verify</button>
-      
+      <form method="POST" enctype="multipart/form-data" action="{% url 'verify_otp' %}">
+        {% csrf_token %}
+        <h2>OTP Verification</h2>
+        
+        <!-- Pre-fill the email field with the email from session -->
+        <label>
+          <span>Email</span>
+          <input type="email" name="mail" value="{{ request.session.signup_data.email }}" readonly>
+        </label>
+        
+        <label>
+          <span>OTP</span>
+          <input type="password" name="otp">
+        </label>
+        
+        <button class="submit" type="submit">Verify</button>
       </form>
     </div>
   </div>
