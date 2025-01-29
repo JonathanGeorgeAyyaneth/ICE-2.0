@@ -66,6 +66,11 @@
     {% if community.governance_and_structure_image %}
         <p><img onclick="inform('{{ community.governance_and_structure_image.url }}')" src="{{ community.governance_and_structure_image.url }}" alt="Governance and Structure"></p>
     {% endif %}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ community.governance_and_structure_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ community.governance_and_structure_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
     {{ community.governance_and_structure|linkify_article|split_paragraphs|safe }}
     {%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
@@ -75,6 +80,11 @@
     {% if community.worship_practices_and_rituals_image %}
         <p><img onclick="inform('{{ community.worship_practices_and_rituals_image.url }}')" src="{{ community.worship_practices_and_rituals_image.url }}" alt="Worship Practices and Rituals" style="float: left;"></p>
     {% endif %}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ community.worship_practices_and_rituals_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ community.worship_practices_and_rituals_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
     {{ community.worship_practices_and_rituals|linkify_article|split_paragraphs|safe }}
     {%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
@@ -84,6 +94,11 @@
     {% if community.beliefs_and_teachings_image %}
         <p><img onclick="inform('{{ community.beliefs_and_teachings_image.url }}')" src="{{ community.beliefs_and_teachings_image.url }}" alt="Beliefs and Teachings"></p>
     {% endif %}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ communitybeliefs_and_teachings_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ community.beliefs_and_teachings_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
     {{ community.beliefs_and_teachings|linkify_article|split_paragraphs|safe }}
 
     {%endif%}
@@ -94,6 +109,11 @@
     {% if community.community_life_image %}
         <p><img onclick="inform('{{ community.community_life_image.url }}')" src="{{ community.community_life_image.url }}" alt="Community Life" style="float: left;"></p>
     {% endif %}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ community.community_life_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ community.community_life_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
     {{ community.community_life|linkify_article|split_paragraphs|safe }}
     {%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
@@ -103,6 +123,11 @@
     {% if community.historical_figures_image %}
         <p><img onclick="inform('{{ community.historical_figures_image.url }}')" src="{{ community.historical_figures_image.url }}" alt="Historical Figures"></p>
     {% endif %}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ community.historical_figures_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ community.historical_figures_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
     {{ community.historical_figures|linkify_article|split_paragraphs|safe }}
     {%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
@@ -112,6 +137,11 @@
     {% if community.conclusion_image %}
         <p><img onclick="inform('{{ community.conclusion_image.url }}')" src="{{ community.conclusion_image.url }}" alt="Conclusion" style="float: left;"></p>
     {% endif %}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ community.conclusion_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ community.conclusion_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
     {{ community.conclusion|linkify_article|split_paragraphs|safe }}
     {%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
