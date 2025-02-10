@@ -72,7 +72,7 @@
                 {{ community.governance_and_structure_hi|linkify_article|split_paragraphs|safe }}
             {% else %}
     {{ community.governance_and_structure|linkify_article|split_paragraphs|safe }}
-    {%endif%}
+    {%endif%}{%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
     {% if community.worship_practices_and_rituals %}
     <br><br>
@@ -86,7 +86,7 @@
                 {{ community.worship_practices_and_rituals_hi|linkify_article|split_paragraphs|safe }}
             {% else %}
     {{ community.worship_practices_and_rituals|linkify_article|split_paragraphs|safe }}
-    {%endif%}
+    {%endif%}{%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
     {% if community.beliefs_and_teachings %}
     <br><br>
@@ -101,7 +101,7 @@
             {% else %}
     {{ community.beliefs_and_teachings|linkify_article|split_paragraphs|safe }}
 
-    {%endif%}
+    {%endif%}{%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
     {% if community.community_life %}
     <br><br>
@@ -115,7 +115,7 @@
                 {{ community.community_life_hi|linkify_article|split_paragraphs|safe }}
             {% else %}
     {{ community.community_life|linkify_article|split_paragraphs|safe }}
-    {%endif%}
+    {%endif%}{%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
     {% if community.historical_figures %}
     <br><br>
@@ -129,7 +129,7 @@
                 {{ community.historical_figures_hi|linkify_article|split_paragraphs|safe }}
             {% else %}
     {{ community.historical_figures|linkify_article|split_paragraphs|safe }}
-    {%endif%}
+    {%endif%}{%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
     {% if community.conclusion %}
     <br><br>
@@ -143,6 +143,7 @@
                 {{ community.conclusion_hi|linkify_article|split_paragraphs|safe }}
             {% else %}
     {{ community.conclusion|linkify_article|split_paragraphs|safe }}
+    {%endif%}
     {%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
 

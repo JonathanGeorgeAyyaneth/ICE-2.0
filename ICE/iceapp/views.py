@@ -525,8 +525,8 @@ def signup(request):
         # Generate and send OTP
         otp = random.randint(100000, 999999)
         send_mail(
-            'Your OTP Code',
-            f'Your OTP code is {otp}.',
+            'Verify Your OTP',
+            f'Dear User, Your OTP code for the website is {otp}.',
             settings.EMAIL_HOST_USER,
             [email],
             fail_silently=False,
