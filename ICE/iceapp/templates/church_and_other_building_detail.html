@@ -33,6 +33,15 @@
       </ul>
     </nav>
   </header>
+  <div class="language-dropdown">
+    &nbsp;
+    <select onchange="location = this.value;">
+        <option value="#">Switch Language</option>
+        <option value="{% url 'set_language' %}?lang=en&next={{ request.path }}">English</option>
+        <option value="{% url 'set_language' %}?lang=ml&next={{ request.path }}">Malayalam</option>
+        <option value="{% url 'set_language' %}?lang=hi&next={{ request.path }}">Hindi</option>
+    </select>
+</div>
 
   <article>
     <p class="toc" onclick="informtoc();">Table Of Contents</p>
@@ -44,7 +53,13 @@
     {% if church_and_other_building.about_image %}
         <p><img src="{{ church_and_other_building.about_image.url }}" alt="Photo of {{ church_and_other_building.name }}" style="float: left;"></p>
     {% endif %}
-    {{ church_and_other_building.about|linkify_article|split_paragraphs|safe }}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ church_and_other_building.about_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ church_and_other_building.about_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
+                {{ church_and_other_building.about|linkify_article|split_paragraphs|safe }} <!-- Default to English -->
+            {% endif %}
     <!-- ------------------------------------------------------------------------------------------ -->
     {% if church_and_other_building.history %}
     <br><br>
@@ -52,8 +67,13 @@
     {% if church_and_other_building.history_image %}
         <p><img src="{{ church_and_other_building.history_image.url }}" alt="History"></p>
     {% endif %}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ church_and_other_building.history_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ church_and_other_building.history_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
     {{ church_and_other_building.history|linkify_article|split_paragraphs|safe }}
-    {%endif%}
+    {%endif%}{%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
     {% if church_and_other_building.architecture_and_design %}
     <br><br>
@@ -61,8 +81,13 @@
     {% if church_and_other_building.architecture_and_design_image %}
         <p><img src="{{ church_and_other_building.architecture_and_design_image.url }}" alt="Photo of Architecture and Design" style="float: left;"></p>
     {% endif %}
-    {{ church_and_other_building.architecture_and_design|linkify_article|split_paragraphs|safe }}
-    {%endif%}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ church_and_other_building.architecture_and_design_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ church_and_other_building.architecture_and_design_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
+    {{ community.church_and_other_building.architecture_and_design|linkify_article|split_paragraphs|safe }}
+    {%endif%}{%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
     {% if church_and_other_building.functions_and_services %}
     <br><br>
@@ -70,8 +95,13 @@
     {% if church_and_other_building.functions_and_services_image %}
         <p><img src="{{ church_and_other_building.functions_and_services_image.url }}" alt="Photo of Functions and Services"></p>
     {% endif %}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ church_and_other_building.functions_and_services_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ church_and_other_building.functions_and_services_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
     {{ church_and_other_building.functions_and_services|linkify_article|split_paragraphs|safe }}
-    {%endif%}
+    {%endif%}{%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
     {% if church_and_other_building.community_impact %}
     <br><br>
@@ -79,8 +109,13 @@
     {% if church_and_other_building.community_impact_image %}
         <p><img src="{{ church_and_other_building.community_impact_image.url }}" alt="Photo of Community Impact" style="float: left;"></p>
     {% endif %}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ church_and_other_building.community_impact_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ church_and_other_building.community_impact_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
     {{ church_and_other_building.community_impact|linkify_article|split_paragraphs|safe }}
-    {%endif%}
+    {%endif%}{%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
     {% if church_and_other_building.governance_and_leadership %}
     <br><br>
@@ -88,8 +123,13 @@
     {% if church_and_other_building.governance_and_leadership_image %}
         <p><img src="{{ church_and_other_building.governance_and_leadership_image.url }}" alt="Photo of Governance and Leadership"></p>
     {% endif %}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ church_and_other_building.governance_and_leadership_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ church_and_other_building.governance_and_leadership_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
     {{ church_and_other_building.governance_and_leadership|linkify_article|split_paragraphs|safe }}
-    {%endif%}
+    {%endif%}{%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
     {% if church_and_other_building.notable_features %}
     <br><br>
@@ -97,8 +137,13 @@
     {% if church_and_other_building.notable_features_image %}
         <p><img src="{{ church_and_other_building.notable_features_image.url }}" alt="Photo of Notable Features" style="float: left;"></p>
     {% endif %}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ church_and_other_building.notable_features_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ church_and_other_building.notable_features_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
     {{ church_and_other_building.notable_features|linkify_article|split_paragraphs|safe }}
-    {%endif%}
+    {%endif%}{%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
     {% if church_and_other_building.conclusion %}
     <br><br>
@@ -106,8 +151,13 @@
     {% if church_and_other_building.conclusion_image %}
         <p><img src="{{ church_and_other_building.conclusion_image.url }}" alt="Conclusion"></p>
     {% endif %}
+    {% if LANGUAGE_CODE == 'ml' %}
+                {{ church_and_other_building.conclusion_ml|linkify_article|split_paragraphs|safe }}
+            {% elif LANGUAGE_CODE == 'hi' %}
+                {{ church_and_other_building.conclusion_hi|linkify_article|split_paragraphs|safe }}
+            {% else %}
     {{ church_and_other_building.conclusion|linkify_article|split_paragraphs|safe }}
-    {%endif%}
+    {%endif%}{%endif%}
     <!-- ------------------------------------------------------------------------------------------ -->
     <br><br>
     <u><p><h2>References</h2></p></u>

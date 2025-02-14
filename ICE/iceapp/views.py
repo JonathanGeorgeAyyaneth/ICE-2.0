@@ -26,6 +26,7 @@ def person_detail(request, pk):
     person = Person.objects.get(pk=pk)
     content_type = ContentType.objects.get_for_model(person)
     comments = Comment.objects.filter(content_type=content_type, object_id=person.id).order_by('-created_at')
+    language_code = request.session.get('lang', 'en')
 
     context = {
         'person': person,
@@ -33,6 +34,7 @@ def person_detail(request, pk):
         'object': person,
         'comments': comments,
         'comment_form': CommentForm(),
+        'LANGUAGE_CODE': language_code,
     }
     return render(request, 'person_detail.html', context)
 
@@ -57,6 +59,7 @@ def institution_building_detail(request, pk):
     institution = get_object_or_404(InstitutionBuilding, pk=pk)
     content_type = ContentType.objects.get_for_model(institution)
     comments = Comment.objects.filter(content_type=content_type, object_id=pk).order_by('-created_at')
+    language_code = request.session.get('lang', 'en')
     
     context = {
         'institution': institution,
@@ -64,6 +67,7 @@ def institution_building_detail(request, pk):
         'object': institution,
         'comments': comments,
         'comment_form': CommentForm(),
+        'LANGUAGE_CODE': language_code,
     }
     return render(request, 'institution.html', context)
 
@@ -72,6 +76,7 @@ def church_and_other_building_detail(request, pk):
     church_and_other_building = get_object_or_404(ChurchAndOtherBuilding, pk=pk)
     content_type = ContentType.objects.get_for_model(church_and_other_building)
     comments = Comment.objects.filter(content_type=content_type, object_id=pk).order_by('-created_at')
+    language_code = request.session.get('lang', 'en')
     
     context = {
         'church_and_other_building': church_and_other_building,
@@ -79,6 +84,7 @@ def church_and_other_building_detail(request, pk):
         'object': church_and_other_building,
         'comments': comments,
         'comment_form': CommentForm(),
+        'LANGUAGE_CODE': language_code,
     }
     return render(request, 'church_and_other_building_detail.html', context)
 
@@ -87,6 +93,7 @@ def major_celebration_historical_event_detail(request, pk):
     celebration = get_object_or_404(MajorCelebrationHistoricalEvent, pk=pk)
     content_type = ContentType.objects.get_for_model(celebration)
     comments = Comment.objects.filter(content_type=content_type, object_id=pk).order_by('-created_at')
+    language_code = request.session.get('lang', 'en')
     
     context = {
         'celebration': celebration,
@@ -94,6 +101,7 @@ def major_celebration_historical_event_detail(request, pk):
         'object': celebration,
         'comments': comments,
         'comment_form': CommentForm(),
+        'LANGUAGE_CODE': language_code,
     }
     return render(request, 'major_celebration_historical_event_detail.html', context)
 
