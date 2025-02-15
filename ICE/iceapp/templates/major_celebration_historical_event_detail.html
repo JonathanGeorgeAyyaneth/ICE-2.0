@@ -52,7 +52,13 @@
 {% if celebration.about_image %}
     <p><img onclick="inform('{{ celebration.about_image.url }}')"src="{{ celebration.about_image.url }}" alt="Photo of {{celebration.name}}" style="float: left;"></p>
 {%endif%}
-{{ celebration.about|linkify_article|split_paragraphs|safe }}
+{% if LANGUAGE_CODE == 'ml' %}
+{{ celebration.about_ml|linkify_article|split_paragraphs|safe }}
+{% elif LANGUAGE_CODE == 'hi' %}
+{{ celebration.about_hi|linkify_article|split_paragraphs|safe }}
+{% else %}
+{{ celebration.about|linkify_article|split_paragraphs|safe }} <!-- Default to English -->
+{% endif %}
 <!-- ------------------------------------------------------------------------------------------ -->
 {%if celebration.background%}
 <br><br>
@@ -60,8 +66,13 @@
 {% if celebration.background_image %}
     <p><img onclick="inform('{{ celebration.background_image.url }}')"src= "{{ celebration.background_image.url }}" alt="Photo of Background details of the event"></p>
 {%endif%}
+{% if LANGUAGE_CODE == 'ml' %}
+{{ celebration.background_ml|linkify_article|split_paragraphs|safe }}
+{% elif LANGUAGE_CODE == 'hi' %}
+{{ celebration.background_hi|linkify_article|split_paragraphs|safe }}
+{% else %}
 {{ celebration.background|linkify_article|split_paragraphs|safe }}
-{%endif%}
+{%endif%}{%endif%}
 <!-- ------------------------------------------------------------------------------------------ -->
 {%if celebration.the_event%}
 <br><br>
@@ -69,8 +80,13 @@
 {% if celebration.the_event_image %}
     <p><img onclick="inform('{{ celebration.the_event_image.url }}')"src="{{ celebration.the_event_image.url }}" alt="Photo of the Event" style="float: left;"></p>
 {%endif%}
+{% if LANGUAGE_CODE == 'ml' %}
+{{ celebration.the_event_ml|linkify_article|split_paragraphs|safe }}
+{% elif LANGUAGE_CODE == 'hi' %}
+{{ celebration.the_event_hi|linkify_article|split_paragraphs|safe }}
+{% else %}
 {{ celebration.the_event|linkify_article|split_paragraphs|safe }}
-{%endif%}
+{%endif%}{%endif%}
 <!-- ------------------------------------------------------------------------------------------ -->
 {%if celebration.impact_and_significance%}
 <br><br>
@@ -78,8 +94,13 @@
 {% if celebration.impact_and_significance_image %}
     <p><img onclick="inform('{{ celebration.impact_and_significance_image.url }}')" src="{{ celebration.impact_and_significance_image.url }}" alt="Photo of Impact and Significance"></p>
 {%endif%}
+{% if LANGUAGE_CODE == 'ml' %}
+{{ celebration.impact_and_significance_ml|linkify_article|split_paragraphs|safe }}
+{% elif LANGUAGE_CODE == 'hi' %}
+{{ celebration.impact_and_significance_hi|linkify_article|split_paragraphs|safe }}
+{% else %}
 {{ celebration.impact_and_significance|linkify_article|split_paragraphs|safe }}
-{%endif%}
+{%endif%}{%endif%}
 <!-- ------------------------------------------------------------------------------------------ -->
 {%if celebration.commemoration%}
 <br><br>
@@ -87,8 +108,13 @@
 {% if celebration.commemoration_image %}
     <p><img onclick="inform('{{ celebration.commemoration_image.url }}')"src="{{ celebration.commemoration_image.url }}" alt="Photo of Commemoration" style="float: left;"></p>
 {%endif%}
+{% if LANGUAGE_CODE == 'ml' %}
+{{ celebration.commemoration_ml|linkify_article|split_paragraphs|safe }}
+{% elif LANGUAGE_CODE == 'hi' %}
+{{ celebration.commemoration_hi|linkify_article|split_paragraphs|safe }}
+{% else %}
 {{ celebration.commemoration|linkify_article|split_paragraphs|safe }}
-{%endif%}
+{%endif%}{%endif%}
 <!-- ------------------------------------------------------------------------------------------ --> 
 {%if celebration.conclusion%}
 <br><br>
@@ -96,8 +122,13 @@
 {% if celebration.conclusion_image %}
     <p><img onclick="inform('{{ celebration.conclusion_image.url }}')"src="{{ celebration.conclusion_image.url }}" alt="Photo of Conclusion"></p>
 {%endif%}
+{% if LANGUAGE_CODE == 'ml' %}
+{{ celebration.conclusion_ml|linkify_article|split_paragraphs|safe }}
+{% elif LANGUAGE_CODE == 'hi' %}
+{{ celebration.conclusion_hi|linkify_article|split_paragraphs|safe }}
+{% else %}
 {{ celebration.conclusion|linkify_article|split_paragraphs|safe }}
-{%endif%}
+{%endif%}{%endif%}
 <!-- ------------------------------------------------------------------------------------------ -->
 <br><br>
 <u><p><h2>References</h2></p></u>

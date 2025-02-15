@@ -33,7 +33,15 @@
       </ul>
     </nav>
   </header>
-
+  <div class="language-dropdown">
+    &nbsp;
+    <select onchange="location = this.value;">
+        <option value="#">Switch Language</option>
+        <option value="{% url 'set_language' %}?lang=en&next={{ request.path }}">English</option>
+        <option value="{% url 'set_language' %}?lang=ml&next={{ request.path }}">Malayalam</option>
+        <option value="{% url 'set_language' %}?lang=hi&next={{ request.path }}">Hindi</option>
+    </select>
+</div>
   <article>
     <p class="toc" onclick="informtoc();">Table Of Contents</p>
     <h1 class="title">{{ person.name }}</h1>
@@ -44,7 +52,13 @@
 {% if person.about_image %}
     <p><img onclick="inform('Photo of {{person.name}}')"src="{{ person.about_image.url }}" alt="Photo of {{person.name}}" style="float: left;"></p>
 {%endif%}
-{{ person.about|linkify_article|split_paragraphs|safe }}
+{% if LANGUAGE_CODE == 'ml' %}
+{{ community.about_ml|linkify_article|split_paragraphs|safe }}
+{% elif LANGUAGE_CODE == 'hi' %}
+{{ community.about_hi|linkify_article|split_paragraphs|safe }}
+{% else %}
+{{ community.about|linkify_article|split_paragraphs|safe }} <!-- Default to English -->
+{% endif %}
 <!-- ------------------------------------------------------------------------------------------ -->
 {% if person.early_life %}
 <br><br>
@@ -52,8 +66,13 @@
 {% if person.early_life_image %}
     <p><img onclick="inform('Photo of Early Life')"src= "{{ person.early_life_image.url }}" alt="Early Life"></p>
 {%endif%}
+{% if LANGUAGE_CODE == 'ml' %}
+{{ person.early_life_ml|linkify_article|split_paragraphs|safe }}
+{% elif LANGUAGE_CODE == 'hi' %}
+{{ person.early_life_hi|linkify_article|split_paragraphs|safe }}
+{% else %}
 {{ person.early_life|linkify_article|split_paragraphs|safe }}
-{%endif%}
+{%endif%}{%endif%}
 <!-- ------------------------------------------------------------------------------------------ -->
 {% if person.key_achievements %}
 <br><br>
@@ -61,8 +80,13 @@
 {% if person.key_achievements_image %}
     <p><img onclick="inform('Photo of Key Achievements')"src="{{ person.key_achievements_image.url }}" alt="Photo of Key Achievements" style="float: left;"></p>
 {%endif%}
+{% if LANGUAGE_CODE == 'ml' %}
+{{ person.key_achievements_ml|linkify_article|split_paragraphs|safe }}
+{% elif LANGUAGE_CODE == 'hi' %}
+{{ person.key_achievements_hi|linkify_article|split_paragraphs|safe }}
+{% else %}
 {{ person.key_achievements|linkify_article|split_paragraphs|safe }}
-{%endif%}
+{%endif%}{%endif%}
 <!-- ------------------------------------------------------------------------------------------ -->
 {% if person.influence_and_legacy %}
 <br><br>
@@ -70,8 +94,13 @@
 {% if person.influence_and_legacy_image %}
     <p><img onclick="inform('Photo of Influence and Legacy')" src="{{ person.influence_and_legacy_image.url }}" alt="Photo of Influence and Legacy"></p>
 {%endif%}
+{% if LANGUAGE_CODE == 'ml' %}
+{{ person.influence_and_legacy_ml|linkify_article|split_paragraphs|safe }}
+{% elif LANGUAGE_CODE == 'hi' %}
+{{ person.influence_and_legacy_hi|linkify_article|split_paragraphs|safe }}
+{% else %}
 {{ person.influence_and_legacy|linkify_article|split_paragraphs|safe }}
-{%endif%}
+{%endif%}{%endif%}
 <!-- ------------------------------------------------------------------------------------------ -->
 {% if person.veneration_recognition %}
 <br><br>
@@ -79,8 +108,13 @@
 {% if person.veneration_recognition_image %}
     <p><img onclick="inform('Photo of Veneration/Recognition')"src="{{ person.veneration_recognition_image.url }}" alt="Photo of Veneration/Recognition" style="float: left;"></p>
 {%endif%}
+{% if LANGUAGE_CODE == 'ml' %}
+{{ person.veneration_recognition_ml|linkify_article|split_paragraphs|safe }}
+{% elif LANGUAGE_CODE == 'hi' %}
+{{ person.veneration_recognition_hi|linkify_article|split_paragraphs|safe }}
+{% else %}
 {{ person.veneration_recognition|linkify_article|split_paragraphs|safe }}
-{%endif%}
+{%endif%}{%endif%}
 <!-- ------------------------------------------------------------------------------------------ -->
 {% if person.personal_reflections %}
 <br><br>
@@ -88,8 +122,13 @@
 {% if person.personal_reflections_image %}
     <p><img onclick="inform('Photo of Personal Reflections')"src="{{ person.personal_reflections_image.url }}" alt="Photo of Personal Reflections"></p>
 {%endif%}
+{% if LANGUAGE_CODE == 'ml' %}
+{{ person.personal_reflections_ml|linkify_article|split_paragraphs|safe }}
+{% elif LANGUAGE_CODE == 'hi' %}
+{{ person.personal_reflections_hi|linkify_article|split_paragraphs|safe }}
+{% else %}
 {{ person.personal_reflections|linkify_article|split_paragraphs|safe }}
-{%endif%}
+{%endif%}{%endif%}
 <!-- ------------------------------------------------------------------------------------------ -->
 {% if person.conclusion %}
 <br><br>
@@ -97,8 +136,13 @@
 {% if person.conclusion_image %}
     <p><img onclick="inform('Photo of Conclusion')"src="{{ person.conclusion_image.url }}" alt="Photo of Conclusion" style="float: left;"></p>
 {%endif%}
+{% if LANGUAGE_CODE == 'ml' %}
+{{ person.conclusion_ml|linkify_article|split_paragraphs|safe }}
+{% elif LANGUAGE_CODE == 'hi' %}
+{{ person.conclusion_hi|linkify_article|split_paragraphs|safe }}
+{% else %}
 {{ person.conclusion|linkify_article|split_paragraphs|safe }}
-{%endif%}
+{%endif%}{%endif%}
 <!-- ------------------------------------------------------------------------------------------ -->
 
 <br><br>
