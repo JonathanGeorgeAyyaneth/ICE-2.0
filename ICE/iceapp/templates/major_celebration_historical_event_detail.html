@@ -33,7 +33,15 @@
       </ul>
       </nav>
   </header>
-
+  <div class="language-dropdown">
+    &nbsp;
+    <select onchange="location = this.value;">
+        <option value="#">Switch Language</option>
+        <option value="{% url 'set_language' %}?lang=en&next={{ request.path }}">English</option>
+        <option value="{% url 'set_language' %}?lang=ml&next={{ request.path }}">Malayalam</option>
+        <option value="{% url 'set_language' %}?lang=hi&next={{ request.path }}">Hindi</option>
+    </select>
+</div>
   <article>
     <p class="toc" onclick="informtoc();">Table Of Contents</p>
     <h1 class="title">{{ celebration.name }}</h1>
